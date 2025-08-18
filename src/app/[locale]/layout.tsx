@@ -1,6 +1,6 @@
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { notFound } from 'next/navigation'
-import { routing } from '@/i18n/routing'
+import { routing } from '@/presentation/i18n/routing'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
