@@ -82,9 +82,6 @@ export default function App() {
     )
   }
 
-  const totalMessages = messages.length
-  const totalLikes = messages.reduce((sum, msg) => sum + msg.likes, 0)
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
