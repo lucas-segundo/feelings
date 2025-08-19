@@ -1,6 +1,9 @@
 {
-  "HomePage": {
-    "title": "Hello world!",
-    "about": "Go to the about page"
+  "Home": {
+    "title": "Kindness Wall",
+    "description": "A place where positive vibes and kind words come together to brighten everyone's day!",
+    "latestMessages": "Latest Messages of Kindness ✨",
+    "noMessages": "No messages yet. Be the first to spread some kindness!",
+    "footer": "Remember: Your words have the power to make someone's day better! 🌟"
   }
 }

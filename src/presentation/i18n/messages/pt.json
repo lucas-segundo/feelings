@@ -1,6 +1,9 @@
 {
-  "HomePage": {
-    "title": "Olá mundo!",
-    "about": "Ir para a página sobre"
+  "Home": {
+    "title": "Mural de Gentilezas",
+    "description": "Um lugar onde vibrações positivas e palavras de gentileza se encontram para iluminar o dia de todos!",
+    "latestMessages": "Últimas Mensagens de Gentileza ✨",
+    "noMessages": "Nenhuma mensagem ainda. Seja o primeiro a espalhar algum amor!",
+    "footer": "Lembre-se: Suas palavras têm o poder de tornar o dia de alguém melhor! 🌟"
   }
 }

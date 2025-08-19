@@ -5,6 +5,7 @@ import { ScrollArea } from '@/presentation/components/ui/scroll-area'
 import { Separator } from '@/presentation/components/ui/separator'
 import { MessageCard } from './components/MessageCard'
 import { MessageInput } from './components/MessageInput'
+import { useTranslations } from 'next-intl'
 
 interface Message {
   id: string
@@ -53,6 +54,7 @@ const initialMessages: Message[] = [
 ]
 
 export default function App() {
+  const t = useTranslations('Home')
   const [messages, setMessages] = useState<Message[]>(initialMessages)
 
   const handleNewMessage = (text: string) => {
@@ -87,11 +89,8 @@ export default function App() {
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl mb-4 text-gray-800">Kindness Wall</h1>
-          <p className="text-gray-600 mb-4">
-            A place where positive vibes and kind words come together to
-            brighten everyone&apos;s day!
-          </p>
+          <h1 className="text-4xl mb-4 text-gray-800">{t('title')}</h1>
+          <p className="text-gray-600 mb-4">{t('description')}</p>
         </div>
 
         {/* Message Input */}
@@ -104,7 +103,7 @@ export default function App() {
         {/* Messages Section */}
         <div className="mb-6">
           <h2 className="text-2xl text-center mb-6 text-gray-800">
-            Latest Messages of Kindness ✨
+            {t('latestMessages')}
           </h2>
 
           <ScrollArea className="h-[600px] rounded-lg border border-gray-200 bg-white/80 p-4">
@@ -121,7 +120,7 @@ export default function App() {
               {messages.length === 0 && (
                 <div className="text-center py-12 text-gray-500">
                   <div className="text-6xl mb-4">🌈</div>
-                  <p>No messages yet. Be the first to spread some kindness!</p>
+                  <p>{t('noMessages')}</p>
                 </div>
               )}
             </div>
@@ -130,10 +129,7 @@ export default function App() {
 
         {/* Footer */}
         <div className="text-center text-sm text-gray-600 mt-8">
-          <p>
-            Remember: Your words have the power to make someone&apos;s day
-            better! 🌟
-          </p>
+          <p>{t('footer')}</p>
         </div>
       </div>
     </div>
