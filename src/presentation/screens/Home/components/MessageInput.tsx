@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button } from '@/presentation/components/ui/button'
 import { Textarea } from '@/presentation/components/ui/textarea'
 import { Card } from '@/presentation/components/ui/card'
-import { Send, Sparkles } from 'lucide-react'
+import { Send } from 'lucide-react'
 
 interface MessageInputProps {
   onSubmit: (message: string) => void
@@ -17,22 +17,6 @@ export function MessageInput({ onSubmit }: MessageInputProps) {
       onSubmit(message.trim())
       setMessage('')
     }
-  }
-
-  const inspirationMessages = [
-    'You are capable of amazing things! 🌟',
-    'Your kindness makes the world brighter! ✨',
-    'Someone is proud of you today! 💖',
-    'You have a beautiful smile! 😊',
-    'Your positive energy is contagious! 🌈',
-  ]
-
-  const addInspiration = () => {
-    const randomMessage =
-      inspirationMessages[
-        Math.floor(Math.random() * inspirationMessages.length)
-      ]
-    setMessage(randomMessage)
   }
 
   return (
@@ -59,17 +43,7 @@ export function MessageInput({ onSubmit }: MessageInputProps) {
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={addInspiration}
-              className="flex items-center space-x-1 border-gray-300 text-gray-600 hover:bg-gray-50"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Need inspiration?</span>
-            </Button>
-
+          <div className="flex items-center justify-end">
             <Button
               type="submit"
               disabled={!message.trim()}
