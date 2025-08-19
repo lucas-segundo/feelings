@@ -1,23 +1,21 @@
 import { useState } from 'react'
 import { Card } from '@/presentation/components/ui/card'
 import { Button } from '@/presentation/components/ui/button'
-import { Heart, ThumbsDown } from 'lucide-react'
+import { Heart } from 'lucide-react'
 
 interface Message {
   id: string
   text: string
   likes: number
-  dislikes: number
   timestamp: Date
 }
 
 interface MessageCardProps {
   message: Message
   onLike: (id: string) => void
-  onDislike: (id: string) => void
 }
 
-export function MessageCard({ message, onLike, onDislike }: MessageCardProps) {
+export function MessageCard({ message, onLike }: MessageCardProps) {
   const [hasLiked, setHasLiked] = useState(false)
   const [hasDisliked, setHasDisliked] = useState(false)
 
@@ -27,16 +25,6 @@ export function MessageCard({ message, onLike, onDislike }: MessageCardProps) {
       setHasLiked(true)
       if (hasDisliked) {
         setHasDisliked(false)
-      }
-    }
-  }
-
-  const handleDislike = () => {
-    if (!hasDisliked) {
-      onDislike(message.id)
-      setHasDisliked(true)
-      if (hasLiked) {
-        setHasLiked(false)
       }
     }
   }
@@ -58,18 +46,6 @@ export function MessageCard({ message, onLike, onDislike }: MessageCardProps) {
             >
               <Heart className={`w-4 h-4 ${hasLiked ? 'fill-current' : ''}`} />
               <span>{message.likes + (hasLiked ? 1 : 0)}</span>
-            </Button>
-
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleDislike}
-              className={`flex items-center space-x-1 hover:bg-gray-100 ${
-                hasDisliked ? 'text-gray-700 bg-gray-50' : 'text-gray-500'
-              }`}
-            >
-              <ThumbsDown className="w-4 h-4" />
-              <span>{message.dislikes + (hasDisliked ? 1 : 0)}</span>
             </Button>
           </div>
 
