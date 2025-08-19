@@ -50,7 +50,7 @@ export function MessageInput({ onSubmit }: MessageInputProps) {
             <Textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="Type your uplifting message here... 💝"
+              placeholder="Type your uplifting message here..."
               className="min-h-[100px] bg-gray-50 border-gray-200 focus:border-amber-400 focus:ring-amber-400 resize-none"
               maxLength={280}
             />

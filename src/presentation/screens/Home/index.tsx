@@ -87,7 +87,7 @@ export default function App() {
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl mb-4 text-gray-800">Kindness Wall 💝</h1>
+          <h1 className="text-4xl mb-4 text-gray-800">Kindness Wall</h1>
           <p className="text-gray-600 mb-4">
             A place where positive vibes and kind words come together to
             brighten everyone&apos;s day!
