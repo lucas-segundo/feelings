@@ -1,6 +1,5 @@
-import { getTranslations } from 'next-intl/server'
+import Home from '@/presentation/screens/Home'
 
 export default async function HomePage() {
-  const t = await getTranslations('HomePage')
-  return <h1 className="text-3xl font-bold">{t('title')}</h1>
+  return <Home />
 }
