@@ -1,0 +1,21 @@
+services:
+  app:
+    build:
+      context: .
+      target: dev
+    env_file: .env
+    command: ${DOCKER_COMPOSE_APP_COMMAND:-npm run dev}
+    ports:
+      - '${DOCKER_COMPOSE_APP_PORT:-3000}:3000'
+      - '${DOCKER_COMPOSE_APP_DEBUG_PORT:-9229}:9229'
+    volumes:
+      - ./:/app
+      - /app/node_modules
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - ${DOCKER_COMPOSE_DB_PORT:-5432}:5432
