@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Card } from '@/presentation/components/ui/card'
-import { Button } from '@/presentation/components/ui/button'
+import { Card } from '@/presentation/components/ui/Card'
+import { Button } from '@/presentation/components/ui/Button'
 import { Heart } from 'lucide-react'
 
 interface Message {

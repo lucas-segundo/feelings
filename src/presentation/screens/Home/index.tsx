@@ -1,11 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { ScrollArea } from '@/presentation/components/ui/scroll-area'
-import { Separator } from '@/presentation/components/ui/separator'
+import { ScrollArea } from '@/presentation/components/ui/ScrollArea'
 import { MessageCard } from './components/MessageCard'
 import { MessageInput } from './components/MessageInput'
 import { useTranslations } from 'next-intl'
+import { Separator } from '@/presentation/components/ui/Separator'
 
 interface Message {
   id: string

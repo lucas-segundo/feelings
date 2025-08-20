@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { Button } from '@/presentation/components/ui/button'
-import { Textarea } from '@/presentation/components/ui/textarea'
-import { Card } from '@/presentation/components/ui/card'
+import { Button } from '@/presentation/components/ui/Button'
+import { Card } from '@/presentation/components/ui/Card'
 import { Send } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { TextArea } from '@/presentation/components/ui/TextArea'
 
 interface MessageInputProps {
   onSubmit: (message: string) => void
@@ -31,7 +31,7 @@ export function MessageInput({ onSubmit }: MessageInputProps) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">
-            <Textarea
+            <TextArea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder={t('placeholder')}
