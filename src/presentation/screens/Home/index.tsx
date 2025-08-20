@@ -6,44 +6,38 @@ import { MessageCard } from './components/MessageCard'
 import { MessageInput } from './components/MessageInput'
 import { useTranslations } from 'next-intl'
 import { Separator } from '@/presentation/components/ui/Separator'
-
-interface Message {
-  id: string
-  text: string
-  likes: number
-  timestamp: Date
-}
+import { Message } from '@/domain/models/Message'
 
 const initialMessages: Message[] = [
   {
     id: '1',
     text: 'You have such a warm and welcoming energy! Thank you for being you! 🌟',
     likes: 42,
-    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+    createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
   },
   {
     id: '2',
     text: 'Your creativity and unique perspective inspire everyone around you! Keep shining! ✨',
     likes: 38,
-    timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
+    createdAt: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
   },
   {
     id: '3',
     text: 'Someone out there is grateful for your kindness today. You make a difference! 💖',
     likes: 56,
-    timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
+    createdAt: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
   },
   {
     id: '4',
     text: "Your smile has the power to brighten someone's entire day! Never underestimate it! 😊",
     likes: 29,
-    timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000), // 8 hours ago
+    createdAt: new Date(Date.now() - 8 * 60 * 60 * 1000), // 8 hours ago
   },
   {
     id: '5',
     text: 'You are stronger than you know and more loved than you realize! 🌈',
     likes: 67,
-    timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000), // 12 hours ago
+    createdAt: new Date(Date.now() - 12 * 60 * 60 * 1000), // 12 hours ago
   },
 ]
 
@@ -56,7 +50,7 @@ export default function App() {
       id: Date.now().toString(),
       text,
       likes: 0,
-      timestamp: new Date(),
+      createdAt: new Date(),
     }
     setMessages([newMessage, ...messages])
   }

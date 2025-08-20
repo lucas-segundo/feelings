@@ -2,13 +2,7 @@ import { useState } from 'react'
 import { Card } from '@/presentation/components/ui/Card'
 import { Button } from '@/presentation/components/ui/Button'
 import { Heart } from 'lucide-react'
-
-interface Message {
-  id: string
-  text: string
-  likes: number
-  timestamp: Date
-}
+import { Message } from '@/domain/models/Message'
 
 interface MessageCardProps {
   message: Message
@@ -50,7 +44,7 @@ export function MessageCard({ message, onLike }: MessageCardProps) {
           </div>
 
           <span className="text-xs text-gray-500">
-            {message.timestamp.toLocaleDateString()}
+            {message.createdAt.toLocaleDateString()}
           </span>
         </div>
       </div>
