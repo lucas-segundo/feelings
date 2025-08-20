@@ -6,7 +6,7 @@ import { MessageCard } from './components/MessageCard'
 import { MessageInput } from './components/MessageInput'
 import { useTranslations } from 'next-intl'
 import { Separator } from '@/presentation/components/ui/Separator'
-import { Message } from '@/domain/models/Message'
+import { Message } from '@/domain/entities/Message'
 
 const initialMessages: Message[] = [
   {

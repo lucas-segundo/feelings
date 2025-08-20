@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Card } from '@/presentation/components/ui/Card'
 import { Button } from '@/presentation/components/ui/Button'
 import { Heart } from 'lucide-react'
-import { Message } from '@/domain/models/Message'
+import { Message } from '@/domain/entities/Message'
 
 interface MessageCardProps {
   message: Message
