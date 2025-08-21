@@ -66,20 +66,17 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
-        {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl mb-4 text-gray-800">{t('title')}</h1>
           <p className="text-gray-600 mb-4">{t('description')}</p>
         </div>
 
-        {/* Message Input */}
         <div className="mb-8">
           <MessageInput onSubmit={handleNewMessage} />
         </div>
 
         <Separator className="my-8" />
 
-        {/* Messages Section */}
         <div className="mb-6">
           <h2 className="text-2xl text-center mb-6 text-gray-800">
             {t('latestMessages')}
@@ -105,7 +102,6 @@ export default function App() {
           </ScrollArea>
         </div>
 
-        {/* Footer */}
         <div className="text-center text-sm text-gray-600 mt-8">
           <p>{t('footer')}</p>
         </div>
