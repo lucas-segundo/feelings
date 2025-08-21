@@ -33,9 +33,16 @@ describe('HomeScreen', () => {
       messages.MessageInput.placeholder,
     )
 
+    vi.mocked(createMessageService).mockImplementation(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 10))
+      return message
+    })
+
     const text = faker.lorem.sentence(20)
     await user.type(messageInput, text)
     await user.click(screen.getByText(messages.MessageInput.send))
+
+    expect(screen.getByTestId('loading-spinner')).toBeDefined()
 
     expect(createMessageService).toHaveBeenCalledWith({
       text,
@@ -43,6 +50,9 @@ describe('HomeScreen', () => {
 
     const successMessage = await screen.findByText(messages.Home.messageSent)
     expect(successMessage).toBeDefined()
+
+    expect(screen.queryByTestId('loading-spinner')).toBeNull()
+    expect(screen.queryByText(text)).toBeNull()
   })
 
   it('should not create a new message if it is less than 28 characters', async () => {

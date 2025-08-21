@@ -45,14 +45,18 @@ const initialMessages: Message[] = [
 
 export default function HomeScreen() {
   const t = useTranslations('Home')
+  const [isLoading, setIsLoading] = useState(false)
   const [messages, setMessages] = useState<Message[]>(initialMessages)
 
   const handleNewMessage = async (text: string) => {
     try {
+      setIsLoading(true)
       await createMessageService({ text })
       toast.success(t('messageSent'))
     } catch {
       toast.error(t('messageCreationFailed'))
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -73,7 +77,7 @@ export default function HomeScreen() {
         </div>
 
         <div className="mb-8">
-          <MessageInput onSubmit={handleNewMessage} />
+          <MessageInput isLoading={isLoading} onSubmit={handleNewMessage} />
         </div>
 
         <Separator className="my-8" />

@@ -6,17 +6,21 @@ import { useTranslations } from 'next-intl'
 import { TextArea } from '@/presentation/components/ui/TextArea'
 
 interface MessageInputProps {
-  onSubmit: (message: string) => void
+  isLoading?: boolean
+  onSubmit: (message: string) => Promise<void>
 }
 
-export function MessageInput({ onSubmit }: MessageInputProps) {
+export function MessageInput({
+  onSubmit,
+  isLoading = false,
+}: MessageInputProps) {
   const t = useTranslations('MessageInput')
   const [message, setMessage] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (message.trim()) {
-      onSubmit(message.trim())
+      await onSubmit(message.trim())
       setMessage('')
     }
   }
@@ -47,8 +51,9 @@ export function MessageInput({ onSubmit }: MessageInputProps) {
           <div className="flex items-center justify-end">
             <Button
               type="submit"
-              disabled={message.trim().length < 28}
-              className="flex items-center space-x-2 bg-amber-500 hover:bg-amber-600 text-white"
+              disabled={message.trim().length < 28 || isLoading}
+              isLoading={isLoading}
+              className="flex w-40 items-center space-x-2 bg-amber-500 hover:bg-amber-600 text-white"
             >
               <Send className="w-4 h-4" />
               <span>{t('send')}</span>
