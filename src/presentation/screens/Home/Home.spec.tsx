@@ -56,4 +56,20 @@ describe('HomeScreen', () => {
 
     expect(createMessageService).not.toHaveBeenCalled()
   })
+
+  it('should show error message if creation fails', async () => {
+    vi.mocked(createMessageService).mockRejectedValue(
+      new Error('Failed to create message'),
+    )
+
+    await user.type(
+      screen.getByPlaceholderText(messages.MessageInput.placeholder),
+      faker.lorem.sentence(20),
+    )
+    await user.click(screen.getByText(messages.MessageInput.send))
+
+    expect(
+      await screen.findByText(messages.Home.messageCreationFailed),
+    ).toBeDefined()
+  })
 })

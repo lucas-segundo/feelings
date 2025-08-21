@@ -48,8 +48,12 @@ export default function HomeScreen() {
   const [messages, setMessages] = useState<Message[]>(initialMessages)
 
   const handleNewMessage = async (text: string) => {
-    await createMessageService({ text })
-    toast.success(t('messageSent'))
+    try {
+      await createMessageService({ text })
+      toast.success(t('messageSent'))
+    } catch {
+      toast.error(t('messageCreationFailed'))
+    }
   }
 
   const handleLike = (id: string) => {

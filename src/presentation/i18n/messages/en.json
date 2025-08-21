@@ -5,7 +5,8 @@
     "latestMessages": "Latest Messages of Kindness ✨",
     "noMessages": "No messages yet. Be the first to spread some kindness!",
     "footer": "Remember: Your words have the power to make someone's day better! 🌟",
-    "messageSent": "Message sent successfully"
+    "messageSent": "Message sent successfully",
+    "messageCreationFailed": "Failed to create message. Please try again later."
   },
   "MessageInput": {
     "title": "Spread Some Joy! ✨",
