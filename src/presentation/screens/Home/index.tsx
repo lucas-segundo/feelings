@@ -41,7 +41,7 @@ const initialMessages: Message[] = [
   },
 ]
 
-export default function App() {
+export default function HomeScreen() {
   const t = useTranslations('Home')
   const [messages, setMessages] = useState<Message[]>(initialMessages)
 
