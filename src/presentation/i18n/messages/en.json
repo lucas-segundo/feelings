@@ -4,7 +4,8 @@
     "description": "A place where positive vibes and kind words come together to brighten everyone's day!",
     "latestMessages": "Latest Messages of Kindness ✨",
     "noMessages": "No messages yet. Be the first to spread some kindness!",
-    "footer": "Remember: Your words have the power to make someone's day better! 🌟"
+    "footer": "Remember: Your words have the power to make someone's day better! 🌟",
+    "messageSent": "Message sent successfully"
   },
   "MessageInput": {
     "title": "Spread Some Joy! ✨",

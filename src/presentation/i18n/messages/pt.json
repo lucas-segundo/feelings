@@ -4,7 +4,8 @@
     "description": "Um lugar onde vibrações positivas e palavras de gentileza se encontram para iluminar o dia de todos!",
     "latestMessages": "Últimas Mensagens de Gentileza ✨",
     "noMessages": "Nenhuma mensagem ainda. Seja o primeiro a espalhar alguma gentileza!",
-    "footer": "Lembre-se: Suas palavras têm o poder de tornar o dia de alguém melhor! 🌟"
+    "footer": "Lembre-se: Suas palavras têm o poder de tornar o dia de alguém melhor! 🌟",
+    "messageSent": "Mensagem enviada com sucesso"
   },
   "MessageInput": {
     "title": "Espalhe alguma alegria! ✨",

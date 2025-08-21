@@ -4,9 +4,9 @@ import { it, describe, vi, beforeEach, expect, afterEach } from 'vitest'
 import { mockMessage } from '@/domain/entities/Message/mock'
 import HomeScreen from '.'
 import { faker } from '@faker-js/faker'
-import { NextIntlClientProvider } from 'next-intl'
 import messages from '@/presentation/i18n/messages/en.json'
 import { createMessageService } from '@/data/services/CreateMessage'
+import { TestingProviders } from '@/presentation/utils/TestingProviders'
 
 vi.mock('@/data/services/CreateMessage')
 
@@ -17,9 +17,9 @@ describe('HomeScreen', () => {
   beforeEach(() => {
     vi.mocked(createMessageService).mockResolvedValue(message)
     render(
-      <NextIntlClientProvider locale="en" messages={messages}>
+      <TestingProviders>
         <HomeScreen />
-      </NextIntlClientProvider>,
+      </TestingProviders>,
     )
   })
 
@@ -40,6 +40,9 @@ describe('HomeScreen', () => {
     expect(createMessageService).toHaveBeenCalledWith({
       text,
     })
+
+    const successMessage = await screen.findByText(messages.Home.messageSent)
+    expect(successMessage).toBeDefined()
   })
 
   it('should not create a new message if it is less than 28 characters', async () => {

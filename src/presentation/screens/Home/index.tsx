@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl'
 import { Separator } from '@/presentation/components/ui/Separator'
 import { Message } from '@/domain/entities/Message'
 import { createMessageService } from '@/data/services/CreateMessage'
+import { toast } from 'sonner'
 
 const initialMessages: Message[] = [
   {
@@ -48,6 +49,7 @@ export default function HomeScreen() {
 
   const handleNewMessage = async (text: string) => {
     await createMessageService({ text })
+    toast.success(t('messageSent'))
   }
 
   const handleLike = (id: string) => {
