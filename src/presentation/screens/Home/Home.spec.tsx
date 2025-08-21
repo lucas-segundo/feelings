@@ -1,22 +1,40 @@
 import { render, screen } from '@testing-library/react'
-import { it, describe, expect } from 'vitest'
-import Home from '.'
-import { mockTranslation } from '@/presentation/utils/mockTranslation'
+import userEvent from '@testing-library/user-event'
+import { it, describe, vi, beforeEach, expect } from 'vitest'
+import { mockMessage } from '@/domain/entities/Message/mock'
+import HomeScreen from '.'
+import { faker } from '@faker-js/faker'
+import { NextIntlClientProvider } from 'next-intl'
+import messages from '@/presentation/i18n/messages/en.json'
+import { createMessageService } from '@/data/services/CreateMessage'
 
-mockTranslation({
-  Home: {
-    title: 'Kindness Wall',
-    description:
-      "A place where positive vibes and kind words come together to brighten everyone's day!",
-    latestMessages: 'Latest Messages of Kindness ✨',
-    noMessages: 'No messages yet. Be the first to spread some kindness!',
-  },
-})
+vi.mock('@/data/services/CreateMessage')
 
-describe('Home', () => {
-  it('should render', () => {
-    render(<Home />)
+describe('HomeScreen', () => {
+  const user = userEvent.setup()
+  const message = mockMessage()
 
-    expect(screen.getByText('Kindness Wall')).toBeDefined()
+  beforeEach(() => {
+    vi.mocked(createMessageService).mockResolvedValue(message)
+
+    render(
+      <NextIntlClientProvider locale="en" messages={messages}>
+        <HomeScreen />
+      </NextIntlClientProvider>,
+    )
+  })
+
+  it('should create a new message', async () => {
+    const messageInput = screen.getByPlaceholderText(
+      messages.MessageInput.placeholder,
+    )
+
+    const text = faker.lorem.sentence()
+    await user.type(messageInput, text)
+    await user.click(screen.getByText(messages.MessageInput.send))
+
+    expect(createMessageService).toHaveBeenCalledWith({
+      text,
+    })
   })
 })

@@ -7,6 +7,7 @@ import { MessageInput } from './components/MessageInput'
 import { useTranslations } from 'next-intl'
 import { Separator } from '@/presentation/components/ui/Separator'
 import { Message } from '@/domain/entities/Message'
+import { createMessageService } from '@/data/services/CreateMessage'
 
 const initialMessages: Message[] = [
   {
@@ -45,14 +46,8 @@ export default function HomeScreen() {
   const t = useTranslations('Home')
   const [messages, setMessages] = useState<Message[]>(initialMessages)
 
-  const handleNewMessage = (text: string) => {
-    const newMessage: Message = {
-      id: Date.now().toString(),
-      text,
-      likes: 0,
-      createdAt: new Date(),
-    }
-    setMessages([newMessage, ...messages])
+  const handleNewMessage = async (text: string) => {
+    await createMessageService({ text })
   }
 
   const handleLike = (id: string) => {
