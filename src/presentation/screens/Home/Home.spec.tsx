@@ -32,76 +32,82 @@ describe('HomeScreen', () => {
     )
   })
 
-  it('should create a new message', async () => {
-    const messageInput = screen.getByPlaceholderText(
-      translation.MessageInput.placeholder,
-    )
+  describe('Message creation', () => {
+    it('should create a new message', async () => {
+      const messageInput = screen.getByPlaceholderText(
+        translation.MessageInput.placeholder,
+      )
 
-    vi.mocked(createMessageService).mockImplementation(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 10))
-      return message
+      vi.mocked(createMessageService).mockImplementation(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 10))
+        return message
+      })
+
+      const text = faker.lorem.sentence(20)
+      await user.type(messageInput, text)
+      await user.click(screen.getByText(translation.MessageInput.send))
+
+      expect(screen.getByTestId('loading-spinner')).toBeDefined()
+
+      expect(createMessageService).toHaveBeenCalledWith({
+        text,
+      })
+
+      const successMessage = await screen.findByText(
+        translation.Home.messageSent,
+      )
+      expect(successMessage).toBeDefined()
+
+      expect(screen.queryByTestId('loading-spinner')).toBeNull()
+      expect(screen.queryByText(text)).toBeNull()
     })
 
-    const text = faker.lorem.sentence(20)
-    await user.type(messageInput, text)
-    await user.click(screen.getByText(translation.MessageInput.send))
+    it('should not create a new message if it is less than 28 characters', async () => {
+      const messageInput = screen.getByPlaceholderText(
+        translation.MessageInput.placeholder,
+      )
+      const text = faker.lorem.words(2)
+      await user.type(messageInput, text)
 
-    expect(screen.getByTestId('loading-spinner')).toBeDefined()
+      await user.click(screen.getByText(translation.MessageInput.send))
 
-    expect(createMessageService).toHaveBeenCalledWith({
-      text,
+      expect(createMessageService).not.toHaveBeenCalled()
     })
 
-    const successMessage = await screen.findByText(translation.Home.messageSent)
-    expect(successMessage).toBeDefined()
+    it('should show error message if creation fails', async () => {
+      vi.mocked(createMessageService).mockRejectedValue(
+        new Error('Failed to create message'),
+      )
 
-    expect(screen.queryByTestId('loading-spinner')).toBeNull()
-    expect(screen.queryByText(text)).toBeNull()
+      await user.type(
+        screen.getByPlaceholderText(translation.MessageInput.placeholder),
+        faker.lorem.sentence(20),
+      )
+      await user.click(screen.getByText(translation.MessageInput.send))
+
+      expect(
+        await screen.findByText(translation.Home.messageCreationFailed),
+      ).toBeDefined()
+    })
   })
 
-  it('should not create a new message if it is less than 28 characters', async () => {
-    const messageInput = screen.getByPlaceholderText(
-      translation.MessageInput.placeholder,
-    )
-    const text = faker.lorem.words(2)
-    await user.type(messageInput, text)
+  describe('Last messages', () => {
+    it('should show last messages', async () => {
+      expect(screen.getByTestId('last-messages-loading')).toBeDefined()
 
-    await user.click(screen.getByText(translation.MessageInput.send))
+      const serviceParams: GetMessagesServiceFilter = {
+        limit: 10,
+        order: {
+          createdAt: 'desc',
+        },
+      }
 
-    expect(createMessageService).not.toHaveBeenCalled()
-  })
+      expect(getMessagesService).toHaveBeenCalledWith(serviceParams)
+      for (const message of messages) {
+        expect(await screen.findByText(message.text)).toBeDefined()
+      }
 
-  it('should show error message if creation fails', async () => {
-    vi.mocked(createMessageService).mockRejectedValue(
-      new Error('Failed to create message'),
-    )
-
-    await user.type(
-      screen.getByPlaceholderText(translation.MessageInput.placeholder),
-      faker.lorem.sentence(20),
-    )
-    await user.click(screen.getByText(translation.MessageInput.send))
-
-    expect(
-      await screen.findByText(translation.Home.messageCreationFailed),
-    ).toBeDefined()
-  })
-
-  it('should show last messages', async () => {
-    expect(screen.getByTestId('last-messages-loading')).toBeDefined()
-
-    const serviceParams: GetMessagesServiceFilter = {
-      limit: 10,
-      order: {
-        createdAt: 'desc',
-      },
-    }
-
-    expect(getMessagesService).toHaveBeenCalledWith(serviceParams)
-    for (const message of messages) {
-      expect(await screen.findByText(message.text)).toBeDefined()
-    }
-
-    expect(screen.queryByTestId('last-messages-loading')).toBeNull()
+      expect(screen.queryByTestId('last-messages-loading')).toBeNull()
+    })
   })
 })
