@@ -32,7 +32,7 @@ describe('HomeScreen', () => {
     )
   })
 
-  describe('Message creation', () => {
+  describe('MessageCreation', () => {
     it('should create a new message', async () => {
       const messageInput = screen.getByPlaceholderText(
         translation.MessageInput.placeholder,
@@ -91,7 +91,7 @@ describe('HomeScreen', () => {
     })
   })
 
-  describe('Last messages', () => {
+  describe('LastMessages', () => {
     it('should show last messages', async () => {
       expect(screen.getByTestId('last-messages-loading')).toBeDefined()
 
