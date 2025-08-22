@@ -8,7 +8,6 @@ interface Params<T> {
 interface Result<T> {
   data: T | undefined
   isLoading: boolean
-
   error: Error | null
 }
 
