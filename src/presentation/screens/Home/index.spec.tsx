@@ -117,4 +117,11 @@ describe('HomeScreen', () => {
       expect(screen.queryByTestId('last-messages-loading')).toBeNull()
     })
   })
+
+  describe('LoginModal', () => {
+    it('should open the login modal', async () => {
+      await user.click(screen.getByText(translation.Home.signIn))
+      expect(await screen.findByTestId('login-modal')).toBeDefined()
+    })
+  })
 })

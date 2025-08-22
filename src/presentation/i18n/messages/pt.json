@@ -6,7 +6,8 @@
     "noMessages": "Nenhuma mensagem ainda. Seja o primeiro a espalhar alguma gentileza!",
     "footer": "Lembre-se: Suas palavras têm o poder de tornar o dia de alguém melhor! 🌟",
     "messageSent": "Mensagem enviada com sucesso",
-    "messageCreationFailed": "Falha ao criar mensagem. Por favor, tente novamente mais tarde."
+    "messageCreationFailed": "Falha ao criar mensagem. Por favor, tente novamente mais tarde.",
+    "signIn": "Entrar"
   },
   "MessageInput": {
     "title": "Espalhe alguma alegria! ✨",

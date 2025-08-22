@@ -6,7 +6,8 @@
     "noMessages": "No messages yet. Be the first to spread some kindness!",
     "footer": "Remember: Your words have the power to make someone's day better! 🌟",
     "messageSent": "Message sent successfully",
-    "messageCreationFailed": "Failed to create message. Please try again later."
+    "messageCreationFailed": "Failed to create message. Please try again later.",
+    "signIn": "Sign In"
   },
   "MessageInput": {
     "title": "Spread Some Joy! ✨",

@@ -42,7 +42,7 @@ export function LoginModal({ isOpen, onClose, onLogin }: LoginModalProps) {
   }
 
   return (
-    <Dialog data-testid="login-modal" open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center justify-center space-x-2">
@@ -54,7 +54,7 @@ export function LoginModal({ isOpen, onClose, onLogin }: LoginModalProps) {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 mt-6">
+        <div className="space-y-4 mt-6" data-testid="login-modal">
           <Button
             type="button"
             onClick={handleGoogleLogin}

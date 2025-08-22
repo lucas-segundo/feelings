@@ -7,10 +7,14 @@ import { Separator } from '@/presentation/components/ui/Separator'
 import { createMessageService } from '@/data/services/CreateMessage'
 import { toast } from 'sonner'
 import LastMessages from './components/LastMessages'
+import { Button } from '@/presentation/components/ui/Button'
+import { User } from 'lucide-react'
+import { LoginModal } from '@/presentation/components/LoginModal'
 
 export default function HomeScreen() {
   const t = useTranslations('Home')
   const [isLoading, setIsLoading] = useState(false)
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
   const handleNewMessage = async (text: string) => {
     try {
@@ -26,6 +30,22 @@ export default function HomeScreen() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        onLogin={() => setIsLoginModalOpen(false)}
+      />
+      <div className="absolute top-4 right-4">
+        <Button
+          variant="outline"
+          size="sm"
+          className="flex items-center space-x-1 border-gray-300 text-gray-600 hover:bg-gray-50 cursor-pointer"
+          onClick={() => setIsLoginModalOpen(true)}
+        >
+          <User className="w-4 h-4" />
+          <span>{t('signIn')}</span>
+        </Button>
+      </div>
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="text-center mb-8">
           <h1 className="text-4xl mb-4 text-gray-800">{t('title')}</h1>
