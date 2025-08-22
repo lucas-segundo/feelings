@@ -18,7 +18,5 @@ export const useQueryHandler = <T>({ key, execute }: Params<T>): Result<T> => {
     queryFn: execute,
   })
 
-  console.log(data, isLoading, error)
-
   return { data, isLoading, error }
 }
