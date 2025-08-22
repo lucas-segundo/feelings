@@ -19,7 +19,7 @@ describe('useQueryHandler', () => {
     queryClient.clear()
   })
 
-  it.skip('should return the data', async () => {
+  it('should return the data', async () => {
     const wrapper = mockReactQueryWrapper()
     const { result } = renderHook(
       () =>
