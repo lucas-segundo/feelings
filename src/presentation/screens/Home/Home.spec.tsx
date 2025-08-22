@@ -1,6 +1,6 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { it, describe, vi, beforeEach, expect, afterEach } from 'vitest'
+import { it, describe, vi, beforeEach, expect } from 'vitest'
 import { mockMessage } from '@/domain/entities/Message/mock'
 import HomeScreen from '.'
 import { faker } from '@faker-js/faker'
@@ -19,18 +19,17 @@ describe('HomeScreen', () => {
   const messages = [mockMessage(), mockMessage(), mockMessage()]
 
   beforeEach(() => {
+    vi.clearAllMocks()
+    cleanup()
+
     vi.mocked(createMessageService).mockResolvedValue(message)
     vi.mocked(getMessagesService).mockResolvedValue(messages)
+
     render(
       <TestingProviders>
         <HomeScreen />
       </TestingProviders>,
     )
-  })
-
-  afterEach(() => {
-    vi.clearAllMocks()
-    cleanup()
   })
 
   it('should create a new message', async () => {
@@ -89,6 +88,8 @@ describe('HomeScreen', () => {
   })
 
   it('should show last messages', async () => {
+    expect(screen.getByTestId('last-messages-loading')).toBeDefined()
+
     const serviceParams: GetMessagesServiceFilter = {
       limit: 10,
       order: {
@@ -100,5 +101,7 @@ describe('HomeScreen', () => {
     for (const message of messages) {
       expect(await screen.findByText(message.text)).toBeDefined()
     }
+
+    expect(screen.queryByTestId('last-messages-loading')).toBeNull()
   })
 })

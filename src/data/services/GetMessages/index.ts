@@ -1,3 +1,5 @@
+'use server'
+
 import { db } from '@/infra/drizzle'
 import { GetMessagesService, GetMessagesServiceFilter } from './types'
 import { messages } from '@/infra/drizzle/schema'

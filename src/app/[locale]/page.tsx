@@ -1,5 +1,13 @@
-import Home from '@/presentation/screens/Home'
+'use client'
 
-export default async function HomePage() {
-  return <Home />
+import { queryClient } from '@/infra/reactQuery'
+import Home from '@/presentation/screens/Home'
+import { QueryClientProvider } from '@tanstack/react-query'
+
+export default function HomePage() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Home />
+    </QueryClientProvider>
+  )
 }
