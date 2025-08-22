@@ -13,5 +13,13 @@
     "description": "Escreva uma mensagem positiva para iluminar o dia de alguém",
     "placeholder": "Escreva sua mensagem aqui...",
     "send": "Enviar Gentileza"
+  },
+  "LoginModal": {
+    "title": "Bem-vindo ao Mural de Gentilezas! 🌟",
+    "description": "Por favor, faça login para continuar",
+    "google": "Continuar com o Google",
+    "apple": "Continuar com o Apple",
+    "newToKindnessWall": "Novo no Mural de Gentilezas?",
+    "byContinuing": "Ao continuar, você concorda em espalhar gentileza e positividade em nossa comunidade. Sua conta será criada automaticamente quando você fizer login pela primeira vez."
   }
 }
