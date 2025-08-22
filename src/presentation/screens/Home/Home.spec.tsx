@@ -109,5 +109,12 @@ describe('HomeScreen', () => {
 
       expect(screen.queryByTestId('last-messages-loading')).toBeNull()
     })
+
+    it('should show no messages if there are no messages', async () => {
+      vi.mocked(getMessagesService).mockResolvedValue([])
+
+      expect(await screen.findByText(translation.Home.noMessages)).toBeDefined()
+      expect(screen.queryByTestId('last-messages-loading')).toBeNull()
+    })
   })
 })
