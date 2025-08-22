@@ -5,6 +5,8 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import '@/presentation/styles/globals.css'
 import { Toaster } from 'sonner'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { queryClient } from '@/infra/reactQuery'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -40,7 +42,9 @@ export default async function LocaleLayout({
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <QueryClientProvider client={queryClient}>
+          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        </QueryClientProvider>
         <Toaster />
       </body>
     </html>
