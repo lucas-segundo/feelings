@@ -2,6 +2,7 @@ import { FlatCompat } from '@eslint/eslintrc'
 import typescriptEslint from '@typescript-eslint/eslint-plugin'
 import typescriptParser from '@typescript-eslint/parser'
 import unusedImports from 'eslint-plugin-unused-imports'
+import tanstackQuery from '@tanstack/eslint-plugin-query'
 
 const compat = new FlatCompat({
   // import.meta.dirname is available after Node.js v20.11.0
@@ -24,6 +25,7 @@ const eslintConfig = [
     plugins: {
       '@typescript-eslint': typescriptEslint,
       'unused-imports': unusedImports,
+      '@tanstack/query': tanstackQuery,
     },
     rules: {
       // Treat unused imports as errors
