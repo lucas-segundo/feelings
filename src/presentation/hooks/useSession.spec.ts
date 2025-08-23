@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { renderHook } from '@testing-library/react'
 import { useSession } from './useSession'
-import { authClient } from '@/infra/betterAuth'
+import { authClient } from '@/infra/betterAuth/client'
 import { faker } from '@faker-js/faker'
 import { BetterFetchError } from 'better-auth/react'
 

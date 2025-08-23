@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { signInWithProviderService } from '.'
-import { authClient } from '@/infra/betterAuth'
+import { authClient } from '@/infra/betterAuth/client'
 
 vi.mock('@/infra/betterAuth', () => ({
   authClient: {

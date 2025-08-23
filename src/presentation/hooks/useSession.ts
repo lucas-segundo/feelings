@@ -1,5 +1,6 @@
 import { Session } from '@/domain/entities/Session'
-import { authClient } from '@/infra/betterAuth'
+import { authClient } from '@/infra/betterAuth/client'
+
 interface Result {
   session: Session | null
   isLoading: boolean

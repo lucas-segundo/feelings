@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { getSessionService } from '.'
-import { auth } from '@/infra/betterAuth'
+import { auth } from '@/infra/betterAuth/server'
 import { mockBetterAuthData } from '@/infra/betterAuth/mock'
 
 vi.mock('@/infra/betterAuth', () => ({

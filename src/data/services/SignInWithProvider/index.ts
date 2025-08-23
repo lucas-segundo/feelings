@@ -1,6 +1,6 @@
 'use client'
 
-import { authClient } from '@/infra/betterAuth'
+import { authClient } from '@/infra/betterAuth/client'
 import { SignInWithProviderService } from './types'
 
 export const signInWithProviderService: SignInWithProviderService = async ({

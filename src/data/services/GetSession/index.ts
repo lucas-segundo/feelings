@@ -1,4 +1,4 @@
-import { auth } from '@/infra/betterAuth'
+import { auth } from '@/infra/betterAuth/server'
 import { GetSessionService } from './type'
 import { headers } from 'next/headers'
 
