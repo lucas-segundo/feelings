@@ -1,25 +1,25 @@
+import { Session } from '@/domain/entities/Session'
 import { authClient } from '@/infra/betterAuth'
-
-interface Data {
-  user: {
-    id: string
-    name: string
-    email: string
-  }
-  session: {
-    id: string
-    expiresAt: Date
-    token: string
-  }
-}
-
 interface Result {
-  data: Data | null
+  session: Session | null
   isLoading: boolean
   error: Error | null
 }
 
 export const useSession = (): Result => {
   const { data, isPending, error } = authClient.useSession()
-  return { data, isLoading: isPending, error }
+  const session = data
+    ? {
+        id: data.session.id,
+        token: data.session.token,
+        expiresAt: data.session.expiresAt,
+        user: {
+          id: data.user.id,
+          name: data.user.name,
+          email: data.user.email,
+        },
+      }
+    : null
+
+  return { session, isLoading: isPending, error }
 }

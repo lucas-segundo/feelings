@@ -26,7 +26,7 @@ describe('useSession', () => {
 
     const { result } = renderHook(() => useSession())
 
-    expect(result.current.data).toBeNull()
+    expect(result.current.session).toBeNull()
     expect(result.current.isLoading).toBe(true)
     expect(result.current.error).toBeNull()
   })
@@ -62,9 +62,15 @@ describe('useSession', () => {
 
     const { result } = renderHook(() => useSession())
 
-    expect(result.current.data).toEqual({
-      user,
-      session,
+    expect(result.current.session).toEqual({
+      id: session.id,
+      token: session.token,
+      expiresAt: session.expiresAt,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
     })
     expect(result.current.isLoading).toBe(false)
     expect(result.current.error).toBeNull()
@@ -82,7 +88,7 @@ describe('useSession', () => {
 
     const { result } = renderHook(() => useSession())
 
-    expect(result.current.data).toBeNull()
+    expect(result.current.session).toBeNull()
     expect(result.current.isLoading).toBe(false)
     expect(result.current.error).toBeInstanceOf(Error)
   })
