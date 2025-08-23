@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest'
 import { createMessageService } from '.'
 import { mockDBMessage } from '@/infra/drizzle/mocks/Message'
 import { db } from '@/infra/drizzle'
-import { messages } from '@/infra/drizzle/schemas/main'
+import { messages } from '@/infra/drizzle/schema/main'
 
 vi.mock('@/infra/drizzle', () => ({
   db: {

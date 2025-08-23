@@ -33,7 +33,6 @@ export default function HomeScreen() {
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
-        onLogin={() => setIsLoginModalOpen(false)}
       />
       <div className="absolute top-4 right-4">
         <Button
