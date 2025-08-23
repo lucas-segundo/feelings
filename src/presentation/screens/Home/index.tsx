@@ -39,7 +39,7 @@ export default function HomeScreen() {
         <Button
           variant="outline"
           size="sm"
-          className="flex items-center space-x-1 border-gray-300 text-gray-600 hover:bg-gray-50 cursor-pointer"
+          className="flex items-center space-x-1 border-gray-300 text-gray-600 hover:bg-gray-50"
           onClick={() => setIsLoginModalOpen(true)}
         >
           <User className="w-4 h-4" />
