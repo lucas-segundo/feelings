@@ -1,5 +1,8 @@
+import { User } from '../User'
+
 export interface Session {
   id: string
-  expiresAt: Date
   token: string
+  expiresAt: Date
+  user: User
 }
