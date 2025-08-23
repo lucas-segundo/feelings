@@ -1,9 +1,8 @@
 import { drizzle } from 'drizzle-orm/node-postgres'
-import * as mainSchema from './schemas/main'
-import * as authSchema from './schemas/auth'
+import { schema } from './schema'
 
 export const db = drizzle({
   connection: process.env.DATABASE_URL!,
   casing: 'snake_case',
-  schema: { ...mainSchema, ...authSchema },
+  schema,
 })
