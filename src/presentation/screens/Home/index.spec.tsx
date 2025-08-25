@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { it, describe, vi, beforeEach, expect } from 'vitest'
 import { mockMessage } from '@/domain/entities/Message/mock'
@@ -9,6 +9,7 @@ import { createMessageService } from '@/data/services/CreateMessage'
 import { TestingProviders } from '@/presentation/utils/TestingProviders'
 import { getMessagesService } from '@/data/services/GetMessages'
 import { GetMessagesServiceFilter } from '@/data/services/GetMessages/types'
+import { mockSession } from '@/domain/entities/Session/mock'
 
 vi.mock('@/data/services/CreateMessage')
 vi.mock('@/data/services/GetMessages')
@@ -20,19 +21,19 @@ describe('HomeScreen', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    cleanup()
-
     vi.mocked(createMessageService).mockResolvedValue(message)
     vi.mocked(getMessagesService).mockResolvedValue(messages)
-
-    render(
-      <TestingProviders>
-        <HomeScreen />
-      </TestingProviders>,
-    )
   })
 
   describe('MessageCreation', () => {
+    beforeEach(() => {
+      render(
+        <TestingProviders>
+          <HomeScreen session={mockSession()} />
+        </TestingProviders>,
+      )
+    })
+
     it('should create a new message', async () => {
       const messageInput = screen.getByPlaceholderText(
         translation.MessageInput.placeholder,
@@ -92,6 +93,14 @@ describe('HomeScreen', () => {
   })
 
   describe('LastMessages', () => {
+    beforeEach(() => {
+      render(
+        <TestingProviders>
+          <HomeScreen session={mockSession()} />
+        </TestingProviders>,
+      )
+    })
+
     it('should show last messages', async () => {
       expect(screen.getByTestId('last-messages-loading')).toBeDefined()
 
@@ -119,7 +128,15 @@ describe('HomeScreen', () => {
   })
 
   describe('LoginModal', () => {
-    it('should open the login modal', async () => {
+    beforeEach(() => {
+      render(
+        <TestingProviders>
+          <HomeScreen session={null} />
+        </TestingProviders>,
+      )
+    })
+
+    it('should open the login modal after clicking on sign in button', async () => {
       await user.click(screen.getByText(translation.Home.signIn))
       expect(await screen.findByTestId('login-modal')).toBeDefined()
     })
