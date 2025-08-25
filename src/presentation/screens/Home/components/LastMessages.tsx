@@ -6,7 +6,11 @@ import { useQueryHandler } from '@/presentation/hooks/useQueryHandler'
 import { LoaderCircle } from 'lucide-react'
 import { MessageCard } from './MessageCard'
 
-export default function LastMessages() {
+interface LastMessagesProps {
+  onLikeMessage: (id: string) => void
+}
+
+export default function LastMessages({ onLikeMessage }: LastMessagesProps) {
   const t = useTranslations('Home')
   const { data = [], isLoading } = useQueryHandler({
     key: 'messages',
@@ -44,7 +48,11 @@ export default function LastMessages() {
           )}
 
           {data.map((message) => (
-            <MessageCard key={message.id} message={message} onLike={() => {}} />
+            <MessageCard
+              key={message.id}
+              message={message}
+              onLike={onLikeMessage}
+            />
           ))}
         </div>
       </ScrollArea>

@@ -31,6 +31,7 @@ export function MessageCard({ message, onLike }: MessageCardProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Button
+              data-testid="like-button"
               variant="ghost"
               size="sm"
               onClick={handleLike}

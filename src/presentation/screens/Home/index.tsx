@@ -43,6 +43,14 @@ export default function HomeScreen({ session }: Props) {
     }
   }
 
+  const handleOnLikeMessage = async (id: string) => {
+    if (session) {
+      console.log('like message', id)
+    } else {
+      setIsLoginModalOpen(true)
+    }
+  }
+
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
@@ -70,7 +78,7 @@ export default function HomeScreen({ session }: Props) {
           <Separator className="my-8" />
 
           <div className="mb-6">
-            <LastMessages />
+            <LastMessages onLikeMessage={handleOnLikeMessage} />
           </div>
 
           <div className="text-center text-sm text-gray-600 mt-8">

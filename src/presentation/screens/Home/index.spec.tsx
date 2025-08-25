@@ -152,5 +152,11 @@ describe('HomeScreen', () => {
       expect(await screen.findByTestId('login-modal')).toBeDefined()
       expect(createMessageService).not.toHaveBeenCalled()
     })
+
+    it('should open it after click on like button', async () => {
+      const likeButtons = await screen.findAllByTestId('like-button')
+      await user.click(likeButtons[0])
+      expect(await screen.findByTestId('login-modal')).toBeDefined()
+    })
   })
 })
