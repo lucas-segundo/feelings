@@ -5,15 +5,15 @@
     "latestMessages": "Latest Messages of Kindness ✨",
     "noMessages": "No messages yet. Be the first to spread some kindness!",
     "footer": "Remember: Your words have the power to make someone's day better! 🌟",
-    "messageSent": "Message sent successfully",
-    "messageCreationFailed": "Failed to create message. Please try again later.",
     "signIn": "Sign In"
   },
   "MessageInput": {
     "title": "Spread Some Joy! ✨",
     "description": "Write a positive message to brighten someone's day",
     "placeholder": "Type your uplifting message here...",
-    "send": "Send Kindness"
+    "send": "Send Kindness",
+    "messageSent": "Message sent successfully",
+    "messageCreationFailed": "Failed to create message. Please try again later."
   },
   "LoginModal": {
     "title": "Welcome to Kindness Wall! 🌟",

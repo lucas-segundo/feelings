@@ -4,8 +4,6 @@ import { useState } from 'react'
 import { MessageInput } from './components/MessageInput'
 import { useTranslations } from 'next-intl'
 import { Separator } from '@/presentation/components/ui/Separator'
-import { createMessageService } from '@/data/services/CreateMessage'
-import { toast } from 'sonner'
 import LastMessages from './components/LastMessages'
 import { Button } from '@/presentation/components/ui/Button'
 import { User } from 'lucide-react'
@@ -20,28 +18,7 @@ interface Props {
 
 export default function HomeScreen({ session }: Props) {
   const t = useTranslations('Home')
-  const [isLoading, setIsLoading] = useState(false)
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
-
-  const handleOnSubmit = async (text: string) => {
-    if (session) {
-      await handleNewMessage(text)
-    } else {
-      setIsLoginModalOpen(true)
-    }
-  }
-
-  const handleNewMessage = async (text: string) => {
-    try {
-      setIsLoading(true)
-      await createMessageService({ text })
-      toast.success(t('messageSent'))
-    } catch {
-      toast.error(t('messageCreationFailed'))
-    } finally {
-      setIsLoading(false)
-    }
-  }
 
   const handleOnLikeMessage = async (id: string) => {
     if (session) {
@@ -72,7 +49,10 @@ export default function HomeScreen({ session }: Props) {
           </div>
 
           <div className="mb-8">
-            <MessageInput isLoading={isLoading} onSubmit={handleOnSubmit} />
+            <MessageInput
+              session={session}
+              onSubmitWithoutSession={() => setIsLoginModalOpen(true)}
+            />
           </div>
 
           <Separator className="my-8" />

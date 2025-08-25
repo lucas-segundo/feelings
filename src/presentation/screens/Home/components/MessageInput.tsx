@@ -4,24 +4,46 @@ import { Card } from '@/presentation/components/ui/Card'
 import { Send } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { TextArea } from '@/presentation/components/ui/TextArea'
+import { toast } from 'sonner'
+import { createMessageService } from '@/data/services/CreateMessage'
+import { Session } from '@/domain/entities/Session'
 
 interface MessageInputProps {
-  isLoading?: boolean
-  onSubmit: (message: string) => Promise<void>
+  session: Session | null
+  onSubmitWithoutSession: () => void
 }
 
 export function MessageInput({
-  onSubmit,
-  isLoading = false,
+  session,
+  onSubmitWithoutSession,
 }: MessageInputProps) {
   const t = useTranslations('MessageInput')
   const [message, setMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (message.trim()) {
-      await onSubmit(message.trim())
+
+    if (!session) {
+      return onSubmitWithoutSession()
+    }
+
+    const text = message.trim()
+    if (text) {
+      await handleNewMessage(text)
       setMessage('')
+    }
+  }
+
+  const handleNewMessage = async (text: string) => {
+    try {
+      setIsLoading(true)
+      await createMessageService({ text })
+      toast.success(t('messageSent'))
+    } catch {
+      toast.error(t('messageCreationFailed'))
+    } finally {
+      setIsLoading(false)
     }
   }
 

@@ -55,7 +55,7 @@ describe('HomeScreen', () => {
       })
 
       const successMessage = await screen.findByText(
-        translation.Home.messageSent,
+        translation.MessageInput.messageSent,
       )
       expect(successMessage).toBeDefined()
 
@@ -87,7 +87,7 @@ describe('HomeScreen', () => {
       await user.click(screen.getByText(translation.MessageInput.send))
 
       expect(
-        await screen.findByText(translation.Home.messageCreationFailed),
+        await screen.findByText(translation.MessageInput.messageCreationFailed),
       ).toBeDefined()
     })
   })

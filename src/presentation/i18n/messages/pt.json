@@ -5,15 +5,15 @@
     "latestMessages": "Últimas Mensagens de Gentileza ✨",
     "noMessages": "Nenhuma mensagem ainda. Seja o primeiro a espalhar alguma gentileza!",
     "footer": "Lembre-se: Suas palavras têm o poder de tornar o dia de alguém melhor! 🌟",
-    "messageSent": "Mensagem enviada com sucesso",
-    "messageCreationFailed": "Falha ao criar mensagem. Por favor, tente novamente mais tarde.",
     "signIn": "Entrar"
   },
   "MessageInput": {
     "title": "Espalhe alguma alegria! ✨",
     "description": "Escreva uma mensagem positiva para iluminar o dia de alguém",
     "placeholder": "Escreva sua mensagem aqui...",
-    "send": "Enviar Gentileza"
+    "send": "Enviar Gentileza",
+    "messageSent": "Mensagem enviada com sucesso",
+    "messageCreationFailed": "Falha ao criar mensagem. Por favor, tente novamente mais tarde."
   },
   "LoginModal": {
     "title": "Bem-vindo ao Mural de Gentilezas! 🌟",
