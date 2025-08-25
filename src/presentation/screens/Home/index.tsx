@@ -10,6 +10,8 @@ import LastMessages from './components/LastMessages'
 import { Button } from '@/presentation/components/ui/Button'
 import { User } from 'lucide-react'
 import { LoginModal } from '@/presentation/components/LoginModal'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { queryClient } from '@/infra/reactQuery'
 
 export default function HomeScreen() {
   const t = useTranslations('Home')
@@ -29,42 +31,44 @@ export default function HomeScreen() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
-      <LoginModal
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-      />
-      <div className="absolute top-4 right-4">
-        <Button
-          variant="outline"
-          size="sm"
-          className="flex items-center space-x-1 border-gray-300 text-gray-600 hover:bg-gray-50"
-          onClick={() => setIsLoginModalOpen(true)}
-        >
-          <User className="w-4 h-4" />
-          <span>{t('signIn')}</span>
-        </Button>
+    <QueryClientProvider client={queryClient}>
+      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+        />
+        <div className="absolute top-4 right-4">
+          <Button
+            variant="outline"
+            size="sm"
+            className="flex items-center space-x-1 border-gray-300 text-gray-600 hover:bg-gray-50"
+            onClick={() => setIsLoginModalOpen(true)}
+          >
+            <User className="w-4 h-4" />
+            <span>{t('signIn')}</span>
+          </Button>
+        </div>
+        <div className="container mx-auto px-4 py-8 max-w-4xl">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl mb-4 text-gray-800">{t('title')}</h1>
+            <p className="text-gray-600 mb-4">{t('description')}</p>
+          </div>
+
+          <div className="mb-8">
+            <MessageInput isLoading={isLoading} onSubmit={handleNewMessage} />
+          </div>
+
+          <Separator className="my-8" />
+
+          <div className="mb-6">
+            <LastMessages />
+          </div>
+
+          <div className="text-center text-sm text-gray-600 mt-8">
+            <p>{t('footer')}</p>
+          </div>
+        </div>
       </div>
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl mb-4 text-gray-800">{t('title')}</h1>
-          <p className="text-gray-600 mb-4">{t('description')}</p>
-        </div>
-
-        <div className="mb-8">
-          <MessageInput isLoading={isLoading} onSubmit={handleNewMessage} />
-        </div>
-
-        <Separator className="my-8" />
-
-        <div className="mb-6">
-          <LastMessages />
-        </div>
-
-        <div className="text-center text-sm text-gray-600 mt-8">
-          <p>{t('footer')}</p>
-        </div>
-      </div>
-    </div>
+    </QueryClientProvider>
   )
 }
