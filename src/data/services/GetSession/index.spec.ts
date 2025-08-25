@@ -3,7 +3,7 @@ import { getSessionService } from '.'
 import { auth } from '@/infra/betterAuth/server'
 import { mockBetterAuthData } from '@/infra/betterAuth/mock'
 
-vi.mock('@/infra/betterAuth', () => ({
+vi.mock('@/infra/betterAuth/server', () => ({
   auth: {
     api: {
       getSession: vi.fn(),

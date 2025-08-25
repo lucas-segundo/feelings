@@ -5,7 +5,7 @@ import { authClient } from '@/infra/betterAuth/client'
 import { faker } from '@faker-js/faker'
 import { BetterFetchError } from 'better-auth/react'
 
-vi.mock('@/infra/betterAuth', () => ({
+vi.mock('@/infra/betterAuth/client', () => ({
   authClient: {
     useSession: vi.fn(),
   },
