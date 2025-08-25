@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export function useLocalStorage<T>(
+export function useStateWithStorage<T>(
   key: string,
   initialValue?: T,
 ): [T, (value: T) => void] {

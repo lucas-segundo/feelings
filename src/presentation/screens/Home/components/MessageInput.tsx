@@ -7,6 +7,7 @@ import { TextArea } from '@/presentation/components/ui/TextArea'
 import { toast } from 'sonner'
 import { createMessageService } from '@/data/services/CreateMessage'
 import { Session } from '@/domain/entities/Session'
+import { useStateWithStorage } from '@/presentation/hooks/useStateWithStorage'
 
 interface MessageInputProps {
   session: Session | null
@@ -18,7 +19,7 @@ export function MessageInput({
   onSubmitWithoutSession,
 }: MessageInputProps) {
   const t = useTranslations('MessageInput')
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useStateWithStorage('messageInput', '')
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
