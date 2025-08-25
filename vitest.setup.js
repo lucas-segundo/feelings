@@ -9,6 +9,13 @@ global.ResizeObserver = vi.fn().mockImplementation(() => ({
   disconnect: vi.fn(),
 }))
 
+// Mock localStorage
+global.localStorage = {
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  removeItem: vi.fn(),
+}
+
 // runs a clean after each test case (e.g. clearing jsdom)
 afterEach(() => {
   cleanup()

@@ -1,14 +1,6 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { useLocalStorage } from './useLocalStorage'
 import { act, renderHook } from '@testing-library/react'
-
-const localStorageMock = {
-  getItem: vi.fn(),
-  setItem: vi.fn(),
-  removeItem: vi.fn(),
-}
-
-global.localStorage = localStorageMock as unknown as Storage
 
 describe('useLocalStorage', () => {
   it('should return the initial value', () => {
