@@ -12,11 +12,24 @@ import { User } from 'lucide-react'
 import { LoginModal } from '@/presentation/components/LoginModal'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from '@/infra/reactQuery'
+import { Session } from '@/domain/entities/Session'
 
-export default function HomeScreen() {
+interface Props {
+  session: Session | null
+}
+
+export default function HomeScreen({ session }: Props) {
   const t = useTranslations('Home')
   const [isLoading, setIsLoading] = useState(false)
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+
+  const handleOnSubmit = async (text: string) => {
+    if (session) {
+      await handleNewMessage(text)
+    } else {
+      setIsLoginModalOpen(true)
+    }
+  }
 
   const handleNewMessage = async (text: string) => {
     try {
@@ -33,10 +46,6 @@ export default function HomeScreen() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
-        <LoginModal
-          isOpen={isLoginModalOpen}
-          onClose={() => setIsLoginModalOpen(false)}
-        />
         <div className="absolute top-4 right-4">
           <Button
             variant="outline"
@@ -55,7 +64,7 @@ export default function HomeScreen() {
           </div>
 
           <div className="mb-8">
-            <MessageInput isLoading={isLoading} onSubmit={handleNewMessage} />
+            <MessageInput isLoading={isLoading} onSubmit={handleOnSubmit} />
           </div>
 
           <Separator className="my-8" />
@@ -69,6 +78,11 @@ export default function HomeScreen() {
           </div>
         </div>
       </div>
+
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
     </QueryClientProvider>
   )
 }

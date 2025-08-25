@@ -136,9 +136,21 @@ describe('HomeScreen', () => {
       )
     })
 
-    it('should open the login modal after clicking on sign in button', async () => {
+    it('should open it after clicking on sign in button', async () => {
       await user.click(screen.getByText(translation.Home.signIn))
       expect(await screen.findByTestId('login-modal')).toBeDefined()
+    })
+
+    it('should open it after submit on messageinput', async () => {
+      const messageInput = screen.getByPlaceholderText(
+        translation.MessageInput.placeholder,
+      )
+      const text = faker.lorem.sentence(20)
+      await user.type(messageInput, text)
+      await user.click(screen.getByText(translation.MessageInput.send))
+
+      expect(await screen.findByTestId('login-modal')).toBeDefined()
+      expect(createMessageService).not.toHaveBeenCalled()
     })
   })
 })
