@@ -40,7 +40,7 @@ export function MessageCard({ message, onLike }: MessageCardProps) {
               }`}
             >
               <Heart className={`w-4 h-4 ${hasLiked ? 'fill-current' : ''}`} />
-              <span>{message.likes + (hasLiked ? 1 : 0)}</span>
+              <span>{hasLiked ? 1 : 0}</span>
             </Button>
           </div>
 

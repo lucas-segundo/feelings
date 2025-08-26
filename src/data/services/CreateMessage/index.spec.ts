@@ -33,7 +33,6 @@ describe('createMessageService', () => {
     ).toHaveBeenCalledWith({
       id: messages.id,
       text: messages.text,
-      likes: messages.likes,
       createdAt: messages.createdAt,
     })
     expect(result).toEqual({

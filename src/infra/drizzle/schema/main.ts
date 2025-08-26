@@ -12,6 +12,5 @@ const timestamps = {
 export const messages = pgTable('messages', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   text: varchar({ length: 255 }).notNull(),
-  likes: integer().notNull().default(0),
   ...timestamps,
 })

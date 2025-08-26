@@ -10,7 +10,6 @@ export const createMessageService: CreateMessageService = async (
   const [message] = await db.insert(messages).values(data).returning({
     id: messages.id,
     text: messages.text,
-    likes: messages.likes,
     createdAt: messages.createdAt,
   })
 

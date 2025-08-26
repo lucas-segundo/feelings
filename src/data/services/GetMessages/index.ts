@@ -32,11 +32,5 @@ const adaptOrderFilter = (order?: GetMessagesServiceFilter['order']): SQL[] => {
     orderBy.push(direction)
   }
 
-  if (order?.likes) {
-    const direction =
-      order.likes === 'asc' ? asc(messages.likes) : desc(messages.likes)
-    orderBy.push(direction)
-  }
-
   return orderBy
 }
