@@ -159,4 +159,20 @@ describe('HomeScreen', () => {
       expect(await screen.findByTestId('login-modal')).toBeDefined()
     })
   })
+
+  describe('WithSession', () => {
+    beforeEach(() => {
+      render(
+        <TestingProviders>
+          <HomeScreen session={mockSession()} />
+        </TestingProviders>,
+      )
+    })
+
+    it('should show user photo and logout button', () => {
+      expect(screen.queryByText(translation.Home.signIn)).toBeNull()
+      expect(screen.getByTestId('user-photo')).toBeDefined()
+      expect(screen.getByTestId('logout-button')).toBeDefined()
+    })
+  })
 })

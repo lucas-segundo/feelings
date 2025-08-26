@@ -5,12 +5,14 @@ import { MessageInput } from './components/MessageInput'
 import { useTranslations } from 'next-intl'
 import { Separator } from '@/presentation/components/ui/Separator'
 import LastMessages from './components/LastMessages'
-import { Button } from '@/presentation/components/ui/Button'
-import { User } from 'lucide-react'
 import { LoginModal } from '@/presentation/components/LoginModal'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from '@/infra/reactQuery'
 import { Session } from '@/domain/entities/Session'
+import { SignInButton } from './components/SignInButton'
+import Image from 'next/image'
+import { Button } from '@/presentation/components/ui/Button'
+import { LogOut, User } from 'lucide-react'
 
 interface Props {
   session: Session | null
@@ -32,15 +34,37 @@ export default function HomeScreen({ session }: Props) {
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
         <div className="absolute top-4 right-4">
-          <Button
-            variant="outline"
-            size="sm"
-            className="flex items-center space-x-1 border-gray-300 text-gray-600 hover:bg-gray-50"
-            onClick={() => setIsLoginModalOpen(true)}
-          >
-            <User className="w-4 h-4" />
-            <span>{t('signIn')}</span>
-          </Button>
+          {session ? (
+            <>
+              <div className="flex items-center space-x-2">
+                {session.user.photo ? (
+                  <Image
+                    width={32}
+                    height={32}
+                    data-testid="user-photo"
+                    src={session.user.photo}
+                    alt="User avatar"
+                    className="w-8 h-8 rounded-full"
+                  />
+                ) : (
+                  <User
+                    className="w-8 h-8"
+                    data-testid="user-placeholder-photo"
+                  />
+                )}
+              </div>
+              <Button
+                data-testid="logout-button"
+                variant="outline"
+                size="sm"
+                className="text-gray-600 hover:text-gray-900 hover:bg-transparent"
+              >
+                <LogOut className="w-4 h-4" />
+              </Button>
+            </>
+          ) : (
+            <SignInButton onClick={() => setIsLoginModalOpen(true)} />
+          )}
         </div>
         <div className="container mx-auto px-4 py-8 max-w-4xl">
           <div className="text-center mb-8">
