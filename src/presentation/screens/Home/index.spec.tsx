@@ -160,19 +160,40 @@ describe('HomeScreen', () => {
     })
   })
 
-  describe('WithSession', () => {
-    beforeEach(() => {
+  describe('Session', () => {
+    it('should show user photo and logout button', () => {
       render(
         <TestingProviders>
           <HomeScreen session={mockSession()} />
         </TestingProviders>,
       )
-    })
 
-    it('should show user photo and logout button', () => {
       expect(screen.queryByText(translation.Home.signIn)).toBeNull()
       expect(screen.getByTestId('user-photo')).toBeDefined()
       expect(screen.getByTestId('logout-button')).toBeDefined()
+    })
+
+    it('should show placeholder photo if user has no photo', () => {
+      const session = mockSession()
+      session.user.photo = null
+      render(
+        <TestingProviders>
+          <HomeScreen session={session} />
+        </TestingProviders>,
+      )
+
+      expect(screen.getByTestId('user-placeholder-photo')).toBeDefined()
+      expect(screen.queryByTestId('user-photo')).toBeNull()
+    })
+
+    it('should show sign in button if user is not logged in', () => {
+      render(
+        <TestingProviders>
+          <HomeScreen session={null} />
+        </TestingProviders>,
+      )
+
+      expect(screen.getByTestId('sign-in-button')).toBeDefined()
     })
   })
 })

@@ -10,6 +10,7 @@ export const SignInButton = ({ onClick }: Props) => {
   const t = useTranslations('Home')
   return (
     <Button
+      data-testid="sign-in-button"
       variant="outline"
       size="sm"
       className="flex items-center space-x-1 border-gray-300 text-gray-600 hover:bg-gray-50"
