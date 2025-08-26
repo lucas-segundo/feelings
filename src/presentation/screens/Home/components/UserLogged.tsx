@@ -1,3 +1,4 @@
+import { signOutService } from '@/data/services/SignOut'
 import { Session } from '@/domain/entities/Session'
 import { Button } from '@/presentation/components/ui/Button'
 import { LogOut } from 'lucide-react'
@@ -19,7 +20,12 @@ export const UserLogged = ({ session }: Props) => {
         className="rounded-full"
       />
 
-      <Button data-testid="logout-button" variant="ghost" size="sm">
+      <Button
+        data-testid="logout-button"
+        variant="ghost"
+        size="sm"
+        onClick={() => signOutService()}
+      >
         <LogOut className="w-4 h-4" />
       </Button>
     </div>

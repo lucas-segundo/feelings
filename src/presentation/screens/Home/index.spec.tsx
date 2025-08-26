@@ -10,9 +10,11 @@ import { TestingProviders } from '@/presentation/utils/TestingProviders'
 import { getMessagesService } from '@/data/services/GetMessages'
 import { GetMessagesServiceFilter } from '@/data/services/GetMessages/types'
 import { mockSession } from '@/domain/entities/Session/mock'
+import { signOutService } from '@/data/services/SignOut'
 
 vi.mock('@/data/services/CreateMessage')
 vi.mock('@/data/services/GetMessages')
+vi.mock('@/data/services/SignOut')
 
 describe('HomeScreen', () => {
   const user = userEvent.setup()
@@ -188,14 +190,15 @@ describe('HomeScreen', () => {
       )
     })
 
-    it('should show sign in button if user is not logged in', () => {
+    it('should logout user', async () => {
       render(
         <TestingProviders>
-          <HomeScreen session={null} />
+          <HomeScreen session={mockSession()} />
         </TestingProviders>,
       )
 
-      expect(screen.getByTestId('sign-in-button')).toBeDefined()
+      await user.click(screen.getByTestId('logout-button'))
+      expect(signOutService).toHaveBeenCalled()
     })
   })
 })
