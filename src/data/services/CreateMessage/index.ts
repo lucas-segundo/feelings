@@ -1,7 +1,7 @@
 'use server'
 
 import { CreateMessageService, CreateMessageServiceData } from './types'
-import { messages } from '@/infra/drizzle/schema/main'
+import { messages } from '@/infra/drizzle/schema/messages'
 import { db } from '@/infra/drizzle'
 
 export const createMessageService: CreateMessageService = async (

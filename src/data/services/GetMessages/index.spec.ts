@@ -3,7 +3,7 @@ import { getMessagesService } from '.'
 import { mockDBMessage } from '@/infra/drizzle/mocks/Message'
 import { db } from '@/infra/drizzle'
 import { desc } from 'drizzle-orm'
-import { messages } from '@/infra/drizzle/schema/main'
+import { messages } from '@/infra/drizzle/schema/messages'
 
 vi.mock('@/infra/drizzle')
 

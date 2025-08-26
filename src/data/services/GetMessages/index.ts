@@ -2,7 +2,7 @@
 
 import { db } from '@/infra/drizzle'
 import { GetMessagesService, GetMessagesServiceFilter } from './types'
-import { messages } from '@/infra/drizzle/schema/main'
+import { messages } from '@/infra/drizzle/schema/messages'
 import { asc, desc, SQL } from 'drizzle-orm'
 
 export const getMessagesService: GetMessagesService = async (
