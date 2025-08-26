@@ -16,6 +16,13 @@ vi.mock('@/data/services/CreateMessage')
 vi.mock('@/data/services/GetMessages')
 vi.mock('@/data/services/SignOut')
 
+const router = {
+  push: vi.fn(),
+}
+vi.mock('next/navigation', () => ({
+  useRouter: vi.fn().mockReturnValue(router),
+}))
+
 describe('HomeScreen', () => {
   const user = userEvent.setup()
   const message = mockMessage()
@@ -199,6 +206,7 @@ describe('HomeScreen', () => {
 
       await user.click(screen.getByTestId('logout-button'))
       expect(signOutService).toHaveBeenCalled()
+      expect(router.push).toHaveBeenCalledWith('/')
     })
   })
 })

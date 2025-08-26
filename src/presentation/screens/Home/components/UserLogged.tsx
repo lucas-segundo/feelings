@@ -3,12 +3,20 @@ import { Session } from '@/domain/entities/Session'
 import { Button } from '@/presentation/components/ui/Button'
 import { LogOut } from 'lucide-react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 interface Props {
   session: Session
 }
 
 export const UserLogged = ({ session }: Props) => {
+  const router = useRouter()
+
+  const handleLogout = () => {
+    signOutService()
+    router.push('/')
+  }
+
   return (
     <div className="flex items-center space-x-2">
       <Image
@@ -24,7 +32,7 @@ export const UserLogged = ({ session }: Props) => {
         data-testid="logout-button"
         variant="ghost"
         size="sm"
-        onClick={() => signOutService()}
+        onClick={handleLogout}
       >
         <LogOut className="w-4 h-4" />
       </Button>
