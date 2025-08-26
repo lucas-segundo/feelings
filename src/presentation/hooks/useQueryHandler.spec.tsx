@@ -15,7 +15,6 @@ const mockReactQueryWrapper = () => {
 
 describe('useQueryHandler', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
     queryClient.clear()
   })
 

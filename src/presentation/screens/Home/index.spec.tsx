@@ -29,7 +29,6 @@ describe('HomeScreen', () => {
   const messages = [mockMessage(), mockMessage(), mockMessage()]
 
   beforeEach(() => {
-    vi.clearAllMocks()
     vi.mocked(createMessageService).mockResolvedValue(message)
     vi.mocked(getMessagesService).mockResolvedValue(messages)
   })

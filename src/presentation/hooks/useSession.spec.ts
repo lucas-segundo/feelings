@@ -12,9 +12,7 @@ vi.mock('@/infra/betterAuth/client', () => ({
 }))
 
 describe('useSession', () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
+  beforeEach(() => {})
 
   it('should return loading state when session is being fetched', () => {
     vi.mocked(authClient).useSession.mockReturnValue({

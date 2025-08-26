@@ -18,5 +18,6 @@ global.localStorage = {
 
 // runs a clean after each test case (e.g. clearing jsdom)
 afterEach(() => {
+  vi.clearAllMocks()
   cleanup()
 })
