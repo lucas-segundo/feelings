@@ -5,4 +5,5 @@ export const mockUser = (): User => ({
   id: faker.string.uuid(),
   name: faker.person.fullName(),
   email: faker.internet.email(),
+  photo: faker.image.url(),
 })

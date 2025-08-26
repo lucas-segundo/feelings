@@ -36,6 +36,7 @@ describe('useSession', () => {
       id: faker.string.uuid(),
       name: faker.person.fullName(),
       email: faker.internet.email(),
+      image: faker.image.url(),
       emailVerified: true,
       createdAt: faker.date.past(),
       updatedAt: faker.date.recent(),
@@ -70,6 +71,7 @@ describe('useSession', () => {
         id: user.id,
         name: user.name,
         email: user.email,
+        photo: user.image,
       },
     })
     expect(result.current.isLoading).toBe(false)
