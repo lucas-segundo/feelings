@@ -19,6 +19,7 @@ const mockUser = () => ({
   name: faker.person.fullName(),
   email: faker.internet.email(),
   emailVerified: true,
+  image: faker.image.url(),
   createdAt: faker.date.past(),
   updatedAt: faker.date.recent(),
 })

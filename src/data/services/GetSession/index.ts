@@ -16,6 +16,7 @@ export const getSessionService: GetSessionService = async () => {
           id: data.user.id,
           name: data.user.name,
           email: data.user.email,
+          photo: data.user.image ?? null,
         },
       }
     : null
