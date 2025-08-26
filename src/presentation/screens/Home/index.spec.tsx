@@ -11,16 +11,16 @@ import { getMessagesService } from '@/data/services/GetMessages'
 import { GetMessagesServiceFilter } from '@/data/services/GetMessages/types'
 import { mockSession } from '@/domain/entities/Session/mock'
 import { signOutService } from '@/data/services/SignOut'
+import { useRouter } from 'next/navigation'
 
 vi.mock('@/data/services/CreateMessage')
 vi.mock('@/data/services/GetMessages')
 vi.mock('@/data/services/SignOut')
 
-const router = {
-  push: vi.fn(),
-}
 vi.mock('next/navigation', () => ({
-  useRouter: vi.fn().mockReturnValue(router),
+  useRouter: vi.fn().mockReturnValue({
+    push: vi.fn(),
+  }),
 }))
 
 describe('HomeScreen', () => {
@@ -206,7 +206,7 @@ describe('HomeScreen', () => {
 
       await user.click(screen.getByTestId('logout-button'))
       expect(signOutService).toHaveBeenCalled()
-      expect(router.push).toHaveBeenCalledWith('/')
+      expect(useRouter().push).toHaveBeenCalledWith('/')
     })
   })
 })
