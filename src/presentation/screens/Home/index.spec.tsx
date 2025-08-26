@@ -182,8 +182,10 @@ describe('HomeScreen', () => {
         </TestingProviders>,
       )
 
-      expect(screen.getByTestId('user-placeholder-photo')).toBeDefined()
-      expect(screen.queryByTestId('user-photo')).toBeNull()
+      expect(screen.getByTestId('user-photo')).toHaveAttribute(
+        'src',
+        '/_next/image?url=%2Fimages%2Fuser-placeholder.png&w=48&q=75',
+      )
     })
 
     it('should show sign in button if user is not logged in', () => {

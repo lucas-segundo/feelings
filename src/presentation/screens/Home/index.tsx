@@ -10,9 +10,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from '@/infra/reactQuery'
 import { Session } from '@/domain/entities/Session'
 import { SignInButton } from './components/SignInButton'
-import Image from 'next/image'
-import { Button } from '@/presentation/components/ui/Button'
-import { LogOut, User } from 'lucide-react'
+import { UserLogged } from './components/UserLogged'
 
 interface Props {
   session: Session | null
@@ -35,33 +33,7 @@ export default function HomeScreen({ session }: Props) {
       <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
         <div className="absolute top-4 right-4">
           {session ? (
-            <>
-              <div className="flex items-center space-x-2">
-                {session.user.photo ? (
-                  <Image
-                    width={32}
-                    height={32}
-                    data-testid="user-photo"
-                    src={session.user.photo}
-                    alt="User avatar"
-                    className="w-8 h-8 rounded-full"
-                  />
-                ) : (
-                  <User
-                    className="w-8 h-8"
-                    data-testid="user-placeholder-photo"
-                  />
-                )}
-              </div>
-              <Button
-                data-testid="logout-button"
-                variant="outline"
-                size="sm"
-                className="text-gray-600 hover:text-gray-900 hover:bg-transparent"
-              >
-                <LogOut className="w-4 h-4" />
-              </Button>
-            </>
+            <UserLogged session={session} />
           ) : (
             <SignInButton onClick={() => setIsLoginModalOpen(true)} />
           )}
