@@ -4,10 +4,18 @@ export function useStateWithStorage<T>(
   key: string,
   initialValue?: T,
 ): [T, (value: T) => void] {
-  const item = getItem(key)
-  const [storedValue, setStoredValue] = useState(
-    item ? JSON.parse(item) : initialValue,
-  )
+  const [storedValue, setStoredValue] = useState<T>(initialValue as T)
+
+  useEffect(() => {
+    const item = getItem(key)
+    if (item) {
+      try {
+        setStoredValue(JSON.parse(item))
+      } catch (error) {
+        console.error('Error parsing localStorage item:', error)
+      }
+    }
+  }, [key])
 
   useEffect(() => {
     try {
