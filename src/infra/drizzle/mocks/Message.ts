@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { messages } from '../schema/messages'
+import { messages } from '../schema/tables/messages'
 
 export const mockDBMessage = (): typeof messages.$inferSelect => ({
   id: faker.number.int({ min: 1, max: 1000 }),

@@ -2,10 +2,10 @@ import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { db } from '../drizzle'
 import { nextCookies } from 'better-auth/next-js'
-import { accounts } from '../drizzle/schema/accounts'
-import { users } from '../drizzle/schema/users'
-import { sessions } from '../drizzle/schema/sessions'
-import { verifications } from '../drizzle/schema/verifications'
+import { accounts } from '../drizzle/schema/tables/accounts'
+import { users } from '../drizzle/schema/tables/users'
+import { sessions } from '../drizzle/schema/tables/sessions'
+import { verifications } from '../drizzle/schema/tables/verifications'
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
