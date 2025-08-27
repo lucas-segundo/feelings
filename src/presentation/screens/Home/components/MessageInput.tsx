@@ -3,11 +3,11 @@ import { Button } from '@/presentation/components/ui/Button'
 import { Card } from '@/presentation/components/ui/Card'
 import { Send } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { TextArea } from '@/presentation/components/ui/TextArea'
 import { toast } from 'sonner'
 import { createMessageService } from '@/data/services/CreateMessage'
 import { Session } from '@/domain/entities/Session'
 import { useStateWithStorage } from '@/presentation/hooks/useStateWithStorage'
+import { TextArea } from '@/presentation/components/ui/TextArea'
 
 interface MessageInputProps {
   session: Session | null
