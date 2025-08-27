@@ -2,7 +2,7 @@
 
 import { db } from '@/infra/drizzle'
 import { GetMessagesService, GetMessagesServiceFilter } from './types'
-import { messages } from '@/infra/drizzle/schema/messages'
+import { messages } from '@/infra/drizzle/schema/tables/messages'
 import { asc, desc, SQL } from 'drizzle-orm'
 
 export const getMessagesService: GetMessagesService = async (
@@ -17,6 +17,7 @@ export const getMessagesService: GetMessagesService = async (
 
   return data.map((message) => ({
     ...message,
+    userID: message.userID.toString(),
     id: message.id.toString(),
   }))
 }

@@ -27,6 +27,7 @@ describe('HomeScreen', () => {
   const user = userEvent.setup()
   const message = mockMessage()
   const messages = [mockMessage(), mockMessage(), mockMessage()]
+  const session = mockSession()
 
   beforeEach(() => {
     vi.mocked(createMessageService).mockResolvedValue(message)
@@ -37,7 +38,7 @@ describe('HomeScreen', () => {
     beforeEach(() => {
       render(
         <TestingProviders>
-          <HomeScreen session={mockSession()} />
+          <HomeScreen session={session} />
         </TestingProviders>,
       )
     })
@@ -60,6 +61,7 @@ describe('HomeScreen', () => {
 
       expect(createMessageService).toHaveBeenCalledWith({
         text,
+        userID: session.user.id,
       })
 
       const successMessage = await screen.findByText(
@@ -104,7 +106,7 @@ describe('HomeScreen', () => {
     beforeEach(() => {
       render(
         <TestingProviders>
-          <HomeScreen session={mockSession()} />
+          <HomeScreen session={session} />
         </TestingProviders>,
       )
     })
@@ -172,7 +174,7 @@ describe('HomeScreen', () => {
     it('should show user photo and logout button', () => {
       render(
         <TestingProviders>
-          <HomeScreen session={mockSession()} />
+          <HomeScreen session={session} />
         </TestingProviders>,
       )
 
@@ -199,7 +201,7 @@ describe('HomeScreen', () => {
     it('should logout user', async () => {
       render(
         <TestingProviders>
-          <HomeScreen session={mockSession()} />
+          <HomeScreen session={session} />
         </TestingProviders>,
       )
 

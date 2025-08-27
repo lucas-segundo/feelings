@@ -3,7 +3,7 @@ import { getMessagesService } from '.'
 import { mockDBMessage } from '@/infra/drizzle/mocks/Message'
 import { db } from '@/infra/drizzle'
 import { desc } from 'drizzle-orm'
-import { messages } from '@/infra/drizzle/schema/messages'
+import { messages } from '@/infra/drizzle/schema/tables/messages'
 
 vi.mock('@/infra/drizzle')
 
@@ -27,6 +27,7 @@ describe('getMessagesService', () => {
       dbMessages.map((message) => ({
         ...message,
         id: message.id.toString(),
+        userID: message.userID.toString(),
       })),
     )
   })

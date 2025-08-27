@@ -4,5 +4,6 @@ import { faker } from '@faker-js/faker'
 export const mockMessage = (): Message => ({
   id: faker.string.uuid(),
   text: faker.lorem.sentence(),
+  userID: faker.string.uuid(),
   createdAt: faker.date.recent(),
 })

@@ -31,15 +31,15 @@ export function MessageInput({
 
     const text = message.trim()
     if (text) {
-      await handleNewMessage(text)
+      await handleNewMessage(text, session)
       setMessage('')
     }
   }
 
-  const handleNewMessage = async (text: string) => {
+  const handleNewMessage = async (text: string, session: Session) => {
     try {
       setIsLoading(true)
-      await createMessageService({ text })
+      await createMessageService({ text, userID: session.user.id })
       toast.success(t('messageSent'))
     } catch {
       toast.error(t('messageCreationFailed'))

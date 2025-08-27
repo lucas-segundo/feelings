@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest'
 import { createMessageService } from '.'
 import { mockDBMessage } from '@/infra/drizzle/mocks/Message'
 import { db } from '@/infra/drizzle'
-import { messages } from '@/infra/drizzle/schema/messages'
+import { messages } from '@/infra/drizzle/schema/tables/messages'
 
 vi.mock('@/infra/drizzle', () => ({
   db: {
@@ -26,6 +26,7 @@ describe('createMessageService', () => {
 
     const result = await createMessageService({
       text: dbMessage.text,
+      userID: dbMessage.userID.toString(),
     })
 
     expect(
@@ -34,10 +35,12 @@ describe('createMessageService', () => {
       id: messages.id,
       text: messages.text,
       createdAt: messages.createdAt,
+      userID: messages.userID,
     })
     expect(result).toEqual({
       ...dbMessage,
       id: dbMessage.id.toString(),
+      userID: dbMessage.userID.toString(),
     })
   })
 })
