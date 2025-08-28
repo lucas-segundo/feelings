@@ -1,4 +1,4 @@
-import { signOutService } from '@/data/services/SignOut'
+import { signOutService } from '@/app/services/SignOut'
 import { Session } from '@/app/entities/Session'
 import { Button } from '@/presentation/components/ui/Button'
 import { LogOut } from 'lucide-react'
