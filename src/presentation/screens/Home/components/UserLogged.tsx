@@ -1,5 +1,5 @@
 import { signOutService } from '@/data/services/SignOut'
-import { Session } from '@/domain/entities/Session'
+import { Session } from '@/app/entities/Session'
 import { Button } from '@/presentation/components/ui/Button'
 import { LogOut } from 'lucide-react'
 import Image from 'next/image'

@@ -8,7 +8,7 @@ import LastMessages from './components/LastMessages'
 import { LoginModal } from '@/presentation/components/LoginModal'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from '@/infra/reactQuery'
-import { Session } from '@/domain/entities/Session'
+import { Session } from '@/app/entities/Session'
 import { SignInButton } from './components/SignInButton'
 import { UserLogged } from './components/UserLogged'
 

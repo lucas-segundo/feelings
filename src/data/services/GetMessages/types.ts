@@ -1,4 +1,4 @@
-import { Message } from '@/domain/entities/Message'
+import { Message } from '@/app/entities/Message'
 
 export interface GetMessagesServiceFilter {
   limit?: number

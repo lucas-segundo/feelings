@@ -1,4 +1,4 @@
-import { Session } from '@/domain/entities/Session'
+import { Session } from '@/app/entities/Session'
 import { authClient } from '@/infra/betterAuth/client'
 
 interface Result {

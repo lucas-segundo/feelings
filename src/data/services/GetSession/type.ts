@@ -1,3 +1,3 @@
-import { Session } from '@/domain/entities/Session'
+import { Session } from '@/app/entities/Session'
 
 export type GetSessionService = () => Promise<Session | null>

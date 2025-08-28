@@ -5,7 +5,7 @@ import { Send } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 import { createMessageService } from '@/data/services/CreateMessage'
-import { Session } from '@/domain/entities/Session'
+import { Session } from '@/app/entities/Session'
 import { useStateWithStorage } from '@/presentation/hooks/useStateWithStorage'
 import { TextArea } from '@/presentation/components/ui/TextArea'
 
