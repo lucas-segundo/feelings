@@ -12,7 +12,7 @@ import {
 } from '@/presentation/components/ui/Dialog'
 import { useTranslations } from 'next-intl'
 import { GoogleIcon } from './svgs/Google'
-import { signInWithProvider } from '@/presentation/client/signInWithProvider'
+import { signInWithProvider } from '@/presentation/func/client/signInWithProvider'
 
 interface LoginModalProps {
   isOpen: boolean

@@ -1,6 +1,6 @@
 import { ScrollArea } from '@/presentation/components/ui/ScrollArea'
 import { useTranslations } from 'next-intl'
-import { getMessages } from '@/presentation/server/getMessages'
+import { getMessages } from '@/presentation/func/server/getMessages'
 
 import { useQueryHandler } from '@/presentation/hooks/useQueryHandler'
 import { LoaderCircle } from 'lucide-react'

@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import { Session } from '@/app/entities/Session'
 import { useStateWithStorage } from '@/presentation/hooks/useStateWithStorage'
 import { TextArea } from '@/presentation/components/ui/TextArea'
-import { createMessage } from '@/presentation/server/createMessage'
+import { createMessage } from '@/presentation/func/server/createMessage'
 
 interface MessageInputProps {
   session: Session | null

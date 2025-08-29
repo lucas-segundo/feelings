@@ -1,4 +1,4 @@
-import { signOut } from '@/presentation/client/signOut'
+import { signOut } from '@/presentation/func/client/signOut'
 import { Session } from '@/app/entities/Session'
 import { Button } from '@/presentation/components/ui/Button'
 import { LogOut } from 'lucide-react'
