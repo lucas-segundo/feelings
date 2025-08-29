@@ -1,7 +1,7 @@
 'use client'
 
-import { SignInWithProviderPortParams } from '@/app/services/SignInWithProvider'
-import { makeSignInWithProviderPort } from '@/app/services/SignInWithProvider/factory'
+import { SignInWithProviderPortParams } from '@/app/ports/SignInWithProvider'
+import { makeSignInWithProviderPort } from '@/app/ports/SignInWithProvider/factory'
 
 export const signInWithProvider = async (
   params: SignInWithProviderPortParams,

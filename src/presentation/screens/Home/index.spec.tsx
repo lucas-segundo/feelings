@@ -11,7 +11,7 @@ import { mockSession } from '@/app/entities/Session/mock'
 import { signOut } from '@/presentation/client/signOut'
 import { useRouter } from 'next/navigation'
 import { createMessage } from '@/presentation/server/createMessage'
-import { GetMessagesPortFilter } from '@/app/services/GetMessages'
+import { GetMessagesPortFilter } from '@/app/ports/GetMessages'
 
 vi.mock('@/presentation/server/createMessage')
 vi.mock('@/presentation/server/getMessages')

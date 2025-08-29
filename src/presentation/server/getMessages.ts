@@ -1,7 +1,7 @@
 'use server'
 
-import { GetMessagesPortFilter } from '@/app/services/GetMessages'
-import { makeGetMessagesPort } from '@/app/services/GetMessages/factory'
+import { GetMessagesPortFilter } from '@/app/ports/GetMessages'
+import { makeGetMessagesPort } from '@/app/ports/GetMessages/factory'
 
 export const getMessages = async (params: GetMessagesPortFilter) => {
   const getMessagesPort = makeGetMessagesPort()

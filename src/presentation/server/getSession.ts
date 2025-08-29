@@ -1,6 +1,6 @@
 'use server'
 
-import { makeGetSessionPort } from '@/app/services/GetSession/factory'
+import { makeGetSessionPort } from '@/app/ports/GetSession/factory'
 
 export const getSession = async () => {
   const getSessionPort = makeGetSessionPort()

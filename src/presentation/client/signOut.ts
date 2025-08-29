@@ -1,6 +1,6 @@
 'use client'
 
-import { makeSignOutPort } from '@/app/services/SignOut/factory'
+import { makeSignOutPort } from '@/app/ports/SignOut/factory'
 
 export const signOut = async () => {
   const signOutPort = makeSignOutPort()
