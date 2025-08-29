@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from 'vitest'
-import { createMessageService } from '.'
 import { mockDBMessage } from '@/infra/drizzle/mocks/Message'
 import { db } from '@/infra/drizzle'
 import { messages } from '@/infra/drizzle/schema/tables/messages'
+import { makeCreateMessagePort } from './factory'
 
 vi.mock('@/infra/drizzle', () => ({
   db: {
@@ -14,7 +14,9 @@ vi.mock('@/infra/drizzle', () => ({
   },
 }))
 
-describe('createMessageService', () => {
+describe('CreateMessagePort', () => {
+  const createMessagePort = makeCreateMessagePort()
+
   it('should create a message', async () => {
     const dbMessage = mockDBMessage()
 
@@ -24,7 +26,7 @@ describe('createMessageService', () => {
       }),
     } as any)
 
-    const result = await createMessageService({
+    const result = await createMessagePort.create({
       text: dbMessage.text,
       userID: dbMessage.userID.toString(),
     })

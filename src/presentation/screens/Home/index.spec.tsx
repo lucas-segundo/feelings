@@ -5,17 +5,17 @@ import { mockMessage } from '@/app/entities/Message/mock'
 import HomeScreen from '.'
 import { faker } from '@faker-js/faker'
 import translation from '@/presentation/i18n/messages/en.json'
-import { createMessageService } from '@/app/services/CreateMessage'
 import { TestingProviders } from '@/presentation/utils/TestingProviders'
 import { getMessagesService } from '@/app/services/GetMessages'
 import { GetMessagesServiceFilter } from '@/app/services/GetMessages/types'
 import { mockSession } from '@/app/entities/Session/mock'
 import { signOutService } from '@/app/services/SignOut'
 import { useRouter } from 'next/navigation'
+import { createMessage } from '@/presentation/server/createMessage'
 
-vi.mock('@/data/services/CreateMessage')
-vi.mock('@/data/services/GetMessages')
-vi.mock('@/data/services/SignOut')
+vi.mock('@/presentation/server/createMessage')
+vi.mock('@/app/services/GetMessages')
+vi.mock('@/app/services/SignOut')
 
 vi.mock('next/navigation', () => ({
   useRouter: vi.fn().mockReturnValue({
@@ -30,7 +30,7 @@ describe('HomeScreen', () => {
   const session = mockSession()
 
   beforeEach(() => {
-    vi.mocked(createMessageService).mockResolvedValue(message)
+    vi.mocked(createMessage).mockResolvedValue(message)
     vi.mocked(getMessagesService).mockResolvedValue(messages)
   })
 
@@ -48,7 +48,7 @@ describe('HomeScreen', () => {
         translation.MessageInput.placeholder,
       )
 
-      vi.mocked(createMessageService).mockImplementation(async () => {
+      vi.mocked(createMessage).mockImplementation(async () => {
         await new Promise((resolve) => setTimeout(resolve, 10))
         return message
       })
@@ -59,7 +59,7 @@ describe('HomeScreen', () => {
 
       expect(screen.getByTestId('loading-spinner')).toBeDefined()
 
-      expect(createMessageService).toHaveBeenCalledWith({
+      expect(createMessage).toHaveBeenCalledWith({
         text,
         userID: session.user.id,
       })
@@ -82,11 +82,11 @@ describe('HomeScreen', () => {
 
       await user.click(screen.getByText(translation.MessageInput.send))
 
-      expect(createMessageService).not.toHaveBeenCalled()
+      expect(createMessage).not.toHaveBeenCalled()
     })
 
     it('should show error message if creation fails', async () => {
-      vi.mocked(createMessageService).mockRejectedValue(
+      vi.mocked(createMessage).mockRejectedValue(
         new Error('Failed to create message'),
       )
 
@@ -160,7 +160,7 @@ describe('HomeScreen', () => {
       await user.click(screen.getByText(translation.MessageInput.send))
 
       expect(await screen.findByTestId('login-modal')).toBeDefined()
-      expect(createMessageService).not.toHaveBeenCalled()
+      expect(createMessage).not.toHaveBeenCalled()
     })
 
     it('should open it after click on like button', async () => {

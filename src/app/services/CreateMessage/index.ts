@@ -1,28 +1,10 @@
-'use server'
+import { Message } from '@/app/entities/Message'
 
-import { CreateMessageService, CreateMessageServiceData } from './types'
-import { messages } from '@/infra/drizzle/schema/tables/messages'
-import { db } from '@/infra/drizzle'
+export interface CreateMessagePortParams {
+  text: string
+  userID: string
+}
 
-export const createMessageService: CreateMessageService = async (
-  data: CreateMessageServiceData,
-) => {
-  const [message] = await db
-    .insert(messages)
-    .values({
-      text: data.text,
-      userID: Number(data.userID),
-    })
-    .returning({
-      id: messages.id,
-      text: messages.text,
-      createdAt: messages.createdAt,
-      userID: messages.userID,
-    })
-
-  return {
-    ...message,
-    id: message.id.toString(),
-    userID: message.userID.toString(),
-  }
+export interface CreateMessagePort {
+  create: (message: CreateMessagePortParams) => Promise<Message>
 }

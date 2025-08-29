@@ -4,10 +4,10 @@ import { Card } from '@/presentation/components/ui/Card'
 import { Send } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
-import { createMessageService } from '@/app/services/CreateMessage'
 import { Session } from '@/app/entities/Session'
 import { useStateWithStorage } from '@/presentation/hooks/useStateWithStorage'
 import { TextArea } from '@/presentation/components/ui/TextArea'
+import { createMessage } from '@/presentation/server/createMessage'
 
 interface MessageInputProps {
   session: Session | null
@@ -39,7 +39,7 @@ export function MessageInput({
   const handleNewMessage = async (text: string, session: Session) => {
     try {
       setIsLoading(true)
-      await createMessageService({ text, userID: session.user.id })
+      await createMessage({ text, userID: session.user.id })
       toast.success(t('messageSent'))
     } catch {
       toast.error(t('messageCreationFailed'))
