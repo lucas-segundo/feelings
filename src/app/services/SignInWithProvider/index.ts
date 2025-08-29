@@ -1,14 +1,8 @@
-'use client'
+export interface SignInWithProviderPortParams {
+  provider: 'google'
+  callbackURL: string
+}
 
-import { authClient } from '@/infra/betterAuth/client'
-import { SignInWithProviderService } from './types'
-
-export const signInWithProviderService: SignInWithProviderService = async ({
-  provider,
-  callbackURL,
-}) => {
-  await authClient.signIn.social({
-    provider,
-    callbackURL,
-  })
+export interface SignInWithProviderPort {
+  signIn(params: SignInWithProviderPortParams): Promise<void>
 }

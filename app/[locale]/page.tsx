@@ -1,8 +1,8 @@
 import Home from '@/presentation/screens/Home'
-import { getSessionService } from '@/app/services/GetSession'
+import { getSession } from '@/presentation/server/getSession'
 
 export default async function HomePage() {
-  const session = await getSessionService()
+  const session = await getSession()
 
   return <Home session={session} />
 }

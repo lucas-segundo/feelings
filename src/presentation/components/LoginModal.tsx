@@ -12,7 +12,7 @@ import {
 } from '@/presentation/components/ui/Dialog'
 import { useTranslations } from 'next-intl'
 import { GoogleIcon } from './svgs/Google'
-import { signInWithProviderService } from '@/app/services/SignInWithProvider'
+import { signInWithProvider } from '@/presentation/client/signInWithProvider'
 
 interface LoginModalProps {
   isOpen: boolean
@@ -23,7 +23,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const t = useTranslations('LoginModal')
 
   const handleGoogleLogin = async () => {
-    await signInWithProviderService({
+    await signInWithProvider({
       provider: 'google',
       callbackURL: '/',
     })

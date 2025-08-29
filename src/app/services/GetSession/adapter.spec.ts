@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
-import { getSessionService } from '.'
 import { auth } from '@/infra/betterAuth/server'
 import { mockBetterAuthData } from '@/infra/betterAuth/mock'
+import { makeGetSessionPort } from './factory'
 
 vi.mock('@/infra/betterAuth/server', () => ({
   auth: {
@@ -14,11 +14,13 @@ vi.mock('@/infra/betterAuth/server', () => ({
 vi.mock('next/headers')
 
 describe('getSessionService', () => {
+  const getSessionPort = makeGetSessionPort()
+
   it('should return the session', async () => {
     const data = mockBetterAuthData()
     vi.mocked(auth.api.getSession).mockResolvedValue(data)
 
-    const session = await getSessionService()
+    const session = await getSessionPort.get()
 
     expect(session).toEqual({
       id: data.session.id,
@@ -36,7 +38,7 @@ describe('getSessionService', () => {
   it('should return null if there is no session', async () => {
     vi.mocked(auth.api.getSession).mockResolvedValue(null)
 
-    const session = await getSessionService()
+    const session = await getSessionPort.get()
 
     expect(session).toBeNull()
   })

@@ -1,4 +1,4 @@
-import { signOutService } from '@/app/services/SignOut'
+import { signOut } from '@/presentation/client/signOut'
 import { Session } from '@/app/entities/Session'
 import { Button } from '@/presentation/components/ui/Button'
 import { LogOut } from 'lucide-react'
@@ -13,7 +13,7 @@ export const UserLogged = ({ session }: Props) => {
   const router = useRouter()
 
   const handleLogout = () => {
-    signOutService()
+    signOut()
     router.push('/')
   }
 

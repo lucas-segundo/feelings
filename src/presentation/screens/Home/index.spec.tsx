@@ -6,16 +6,16 @@ import HomeScreen from '.'
 import { faker } from '@faker-js/faker'
 import translation from '@/presentation/i18n/messages/en.json'
 import { TestingProviders } from '@/presentation/utils/TestingProviders'
-import { getMessagesService } from '@/app/services/GetMessages'
-import { GetMessagesServiceFilter } from '@/app/services/GetMessages/types'
+import { getMessages } from '@/presentation/server/getMessages'
 import { mockSession } from '@/app/entities/Session/mock'
-import { signOutService } from '@/app/services/SignOut'
+import { signOut } from '@/presentation/client/signOut'
 import { useRouter } from 'next/navigation'
 import { createMessage } from '@/presentation/server/createMessage'
+import { GetMessagesPortFilter } from '@/app/services/GetMessages'
 
 vi.mock('@/presentation/server/createMessage')
-vi.mock('@/app/services/GetMessages')
-vi.mock('@/app/services/SignOut')
+vi.mock('@/presentation/server/getMessages')
+vi.mock('@/presentation/client/signOut')
 
 vi.mock('next/navigation', () => ({
   useRouter: vi.fn().mockReturnValue({
@@ -31,7 +31,7 @@ describe('HomeScreen', () => {
 
   beforeEach(() => {
     vi.mocked(createMessage).mockResolvedValue(message)
-    vi.mocked(getMessagesService).mockResolvedValue(messages)
+    vi.mocked(getMessages).mockResolvedValue(messages)
   })
 
   describe('MessageCreation', () => {
@@ -114,14 +114,14 @@ describe('HomeScreen', () => {
     it('should show last messages', async () => {
       expect(screen.getByTestId('last-messages-loading')).toBeDefined()
 
-      const serviceParams: GetMessagesServiceFilter = {
+      const serviceParams: GetMessagesPortFilter = {
         limit: 10,
         order: {
           createdAt: 'desc',
         },
       }
 
-      expect(getMessagesService).toHaveBeenCalledWith(serviceParams)
+      expect(getMessages).toHaveBeenCalledWith(serviceParams)
       for (const message of messages) {
         expect(await screen.findByText(message.text)).toBeDefined()
       }
@@ -130,7 +130,7 @@ describe('HomeScreen', () => {
     })
 
     it('should show no messages if there are no messages', async () => {
-      vi.mocked(getMessagesService).mockResolvedValue([])
+      vi.mocked(getMessages).mockResolvedValue([])
 
       expect(await screen.findByText(translation.Home.noMessages)).toBeDefined()
       expect(screen.queryByTestId('last-messages-loading')).toBeNull()
@@ -206,7 +206,7 @@ describe('HomeScreen', () => {
       )
 
       await user.click(screen.getByTestId('logout-button'))
-      expect(signOutService).toHaveBeenCalled()
+      expect(signOut).toHaveBeenCalled()
       expect(useRouter().push).toHaveBeenCalledWith('/')
     })
   })

@@ -1,6 +1,6 @@
 import { ScrollArea } from '@/presentation/components/ui/ScrollArea'
 import { useTranslations } from 'next-intl'
-import { getMessagesService } from '@/app/services/GetMessages'
+import { getMessages } from '@/presentation/server/getMessages'
 
 import { useQueryHandler } from '@/presentation/hooks/useQueryHandler'
 import { LoaderCircle } from 'lucide-react'
@@ -15,7 +15,7 @@ export default function LastMessages({ onLikeMessage }: LastMessagesProps) {
   const { data = [], isLoading } = useQueryHandler({
     key: 'messages',
     execute: async () =>
-      getMessagesService({
+      getMessages({
         limit: 10,
         order: {
           createdAt: 'desc',
