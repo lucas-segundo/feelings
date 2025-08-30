@@ -3,18 +3,18 @@ import { defaultTimestamps } from '../timestamps'
 import { users } from './users'
 
 export const accounts = pgTable('accounts', {
-  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
-  accountId: text('account_id').notNull(),
-  providerId: text('provider_id').notNull(),
-  userId: integer('user_id')
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  accountId: text().notNull(),
+  providerId: text().notNull(),
+  userId: integer()
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
-  accessToken: text('access_token'),
-  refreshToken: text('refresh_token'),
-  idToken: text('id_token'),
-  accessTokenExpiresAt: timestamp('access_token_expires_at'),
-  refreshTokenExpiresAt: timestamp('refresh_token_expires_at'),
-  scope: text('scope'),
-  password: text('password'),
+  accessToken: text(),
+  refreshToken: text(),
+  idToken: text(),
+  accessTokenExpiresAt: timestamp(),
+  refreshTokenExpiresAt: timestamp(),
+  scope: text(),
+  password: text(),
   ...defaultTimestamps,
 })

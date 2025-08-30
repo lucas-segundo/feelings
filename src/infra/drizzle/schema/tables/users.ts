@@ -6,13 +6,13 @@ import { accounts } from './accounts'
 import { sessions } from './sessions'
 
 const users = pgTable('users', {
-  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
-  name: text('name').notNull(),
-  email: text('email').notNull().unique(),
-  emailVerified: boolean('email_verified')
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  name: text().notNull(),
+  email: text().notNull().unique(),
+  emailVerified: boolean()
     .$defaultFn(() => false)
     .notNull(),
-  image: text('image'),
+  image: text(),
   ...defaultTimestamps,
 })
 

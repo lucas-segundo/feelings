@@ -3,12 +3,12 @@ import { users } from './users'
 import { defaultTimestamps } from '../timestamps'
 
 export const sessions = pgTable('sessions', {
-  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
-  expiresAt: timestamp('expires_at').notNull(),
-  token: text('token').notNull().unique(),
-  ipAddress: text('ip_address'),
-  userAgent: text('user_agent'),
-  userId: integer('user_id')
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  expiresAt: timestamp().notNull(),
+  token: text().notNull().unique(),
+  ipAddress: text(),
+  userAgent: text(),
+  userId: integer()
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
   ...defaultTimestamps,
