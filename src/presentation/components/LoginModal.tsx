@@ -13,6 +13,7 @@ import {
 import { useTranslations } from 'next-intl'
 import { GoogleIcon } from './svgs/Google'
 import { signInWithProvider } from '@/presentation/func/client/signInWithProvider'
+import { LinkedInIcon } from './svgs/LinkedIn'
 
 interface LoginModalProps {
   isOpen: boolean
@@ -22,9 +23,9 @@ interface LoginModalProps {
 export function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const t = useTranslations('LoginModal')
 
-  const handleGoogleLogin = async () => {
+  const handleLoginWithProvider = async (provider: 'google' | 'linkedin') => {
     await signInWithProvider({
-      provider: 'google',
+      provider,
       callbackURL: '/',
     })
   }
@@ -45,11 +46,20 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
         <div className="space-y-4 mt-6" data-testid="login-modal">
           <Button
             type="button"
-            onClick={handleGoogleLogin}
+            onClick={() => handleLoginWithProvider('google')}
             className="w-full h-12 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 flex items-center justify-center space-x-3"
           >
             <GoogleIcon />
             <span>{t('google')}</span>
+          </Button>
+
+          <Button
+            type="button"
+            onClick={() => handleLoginWithProvider('linkedin')}
+            className="w-full h-12 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 flex items-center justify-center space-x-3"
+          >
+            <LinkedInIcon />
+            <span>{t('linkedin')}</span>
           </Button>
         </div>
 

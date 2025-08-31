@@ -1,5 +1,5 @@
 export interface SignInWithProviderPortParams {
-  provider: 'google'
+  provider: 'google' | 'linkedin'
   callbackURL: string
 }
 
