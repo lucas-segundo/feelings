@@ -13,9 +13,9 @@ import { useRouter } from 'next/navigation'
 import { createMessage } from '@/presentation/func/server/createMessage'
 import { GetMessagesPortFilter } from '@/app/ports/GetMessages'
 
-vi.mock('@/presentation/server/createMessage')
-vi.mock('@/presentation/server/getMessages')
-vi.mock('@/presentation/client/signOut')
+vi.mock('@/presentation/func/server/createMessage')
+vi.mock('@/presentation/func/server/getMessages')
+vi.mock('@/presentation/func/client/signOut')
 
 vi.mock('next/navigation', () => ({
   useRouter: vi.fn().mockReturnValue({
