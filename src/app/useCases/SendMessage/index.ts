@@ -14,13 +14,13 @@ export class SendMessageUseCase {
     private readonly createMessagePort: CreateMessagePort,
   ) {}
 
-  async execute(data: SendMessageUseCaseDTO): Promise<Message> {
-    const analysis = await this.sentimentAnalysisPort.analyze(data.text)
+  async execute({ text, userID }: SendMessageUseCaseDTO): Promise<Message> {
+    const analysis = await this.sentimentAnalysisPort.analyze(text)
 
     if (analysis.sentiment === 'positive') {
       return await this.createMessagePort.create({
-        text: data.text,
-        userID: data.userID,
+        text,
+        userID,
       })
     }
 
