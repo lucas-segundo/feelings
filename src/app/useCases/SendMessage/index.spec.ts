@@ -3,6 +3,7 @@ import { SendMessageUseCase } from '.'
 import { SentimentAnalysisPort } from '@/app/ports/SentimentAnalysis'
 import { CreateMessagePort } from '@/app/ports/CreateMessage'
 import { mockMessage } from '@/app/entities/Message/mock'
+import { SentimentNotPositive } from '@/app/errors/SentimentNotPositive'
 
 const sentimentAnalysisPort: Mocked<SentimentAnalysisPort> = {
   analyze: vi.fn(),
@@ -53,7 +54,7 @@ describe('SendMessageUseCase', () => {
       userID,
     })
 
-    expect(result).rejects.toThrow('Sentiment analysis is not positive')
+    expect(result).rejects.toThrow(SentimentNotPositive)
     expect(sentimentAnalysisPort.analyze).toHaveBeenCalledWith(message.text)
     expect(createMessagePort.create).not.toHaveBeenCalled()
   })

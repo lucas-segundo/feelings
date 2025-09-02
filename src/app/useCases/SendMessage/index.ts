@@ -1,4 +1,5 @@
 import { Message } from '@/app/entities/Message'
+import { SentimentNotPositive } from '@/app/errors/SentimentNotPositive'
 import { CreateMessagePort } from '@/app/ports/CreateMessage'
 import { SentimentAnalysisPort } from '@/app/ports/SentimentAnalysis'
 
@@ -23,6 +24,6 @@ export class SendMessageUseCase {
       })
     }
 
-    throw new Error('Sentiment analysis is not positive')
+    throw new SentimentNotPositive()
   }
 }
