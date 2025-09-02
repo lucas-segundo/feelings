@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import { Session } from '@/app/entities/Session'
 import { useStateWithStorage } from '@/presentation/hooks/useStateWithStorage'
 import { TextArea } from '@/presentation/components/ui/TextArea'
-import { createMessage } from '@/presentation/func/server/createMessage'
+import { sendMessage } from '@/presentation/func/server/sendMessage'
 
 interface MessageInputProps {
   session: Session | null
@@ -39,7 +39,7 @@ export function MessageInput({
   const handleNewMessage = async (text: string, session: Session) => {
     try {
       setIsLoading(true)
-      await createMessage({ text, userID: session.user.id })
+      await sendMessage({ text, userID: session.user.id })
       toast.success(t('messageSent'))
     } catch {
       toast.error(t('messageCreationFailed'))

@@ -10,10 +10,10 @@ import { getMessages } from '@/presentation/func/server/getMessages'
 import { mockSession } from '@/app/entities/Session/mock'
 import { signOut } from '@/presentation/func/client/signOut'
 import { useRouter } from 'next/navigation'
-import { createMessage } from '@/presentation/func/server/createMessage'
+import { sendMessage } from '@/presentation/func/server/sendMessage'
 import { GetMessagesPortFilter } from '@/app/ports/GetMessages'
 
-vi.mock('@/presentation/func/server/createMessage')
+vi.mock('@/presentation/func/server/sendMessage')
 vi.mock('@/presentation/func/server/getMessages')
 vi.mock('@/presentation/func/client/signOut')
 
@@ -30,7 +30,7 @@ describe('HomeScreen', () => {
   const session = mockSession()
 
   beforeEach(() => {
-    vi.mocked(createMessage).mockResolvedValue(message)
+    vi.mocked(sendMessage).mockResolvedValue(message)
     vi.mocked(getMessages).mockResolvedValue(messages)
   })
 
@@ -48,7 +48,7 @@ describe('HomeScreen', () => {
         translation.MessageInput.placeholder,
       )
 
-      vi.mocked(createMessage).mockImplementation(async () => {
+      vi.mocked(sendMessage).mockImplementation(async () => {
         await new Promise((resolve) => setTimeout(resolve, 10))
         return message
       })
@@ -59,7 +59,7 @@ describe('HomeScreen', () => {
 
       expect(screen.getByTestId('loading-spinner')).toBeDefined()
 
-      expect(createMessage).toHaveBeenCalledWith({
+      expect(sendMessage).toHaveBeenCalledWith({
         text,
         userID: session.user.id,
       })
@@ -82,11 +82,11 @@ describe('HomeScreen', () => {
 
       await user.click(screen.getByText(translation.MessageInput.send))
 
-      expect(createMessage).not.toHaveBeenCalled()
+      expect(sendMessage).not.toHaveBeenCalled()
     })
 
     it('should show error message if creation fails', async () => {
-      vi.mocked(createMessage).mockRejectedValue(
+      vi.mocked(sendMessage).mockRejectedValue(
         new Error('Failed to create message'),
       )
 
@@ -160,7 +160,7 @@ describe('HomeScreen', () => {
       await user.click(screen.getByText(translation.MessageInput.send))
 
       expect(await screen.findByTestId('login-modal')).toBeDefined()
-      expect(createMessage).not.toHaveBeenCalled()
+      expect(sendMessage).not.toHaveBeenCalled()
     })
 
     it('should open it after click on like button', async () => {
