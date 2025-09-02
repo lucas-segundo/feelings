@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",
-    "test:watch": "vitest watch"
+    "test:watch": "vitest watch",
+    "db:push": "drizzle-kit push"
   },
   "dependencies": {
     "@google/genai": "^1.16.0",
