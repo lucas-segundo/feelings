@@ -63,3 +63,7 @@ src/
   - `entities`: domain data structures and logic.
   - `ports`: stable interfaces the domain depends on; each folder contains `adapter.ts` (implements the port), `factory.ts`, and tests to guide usage/contract.
   - `useCases`: application services orchestrating entities through ports (e.g., `SendMessage`).
+
+- Infrastructure has the configurations for external dependencies to enable the adapters inside `src/app` work.
+
+- Presentation depends ONLY on ports and use cases to present the data to the user.
