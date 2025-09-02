@@ -13,7 +13,8 @@
     "placeholder": "Type your uplifting message here...",
     "send": "Send Kindness",
     "messageSent": "Message sent successfully",
-    "messageCreationFailed": "Failed to create message. Please try again later."
+    "messageCreationFailed": "Failed to create message. Please try again later.",
+    "sentimentNotPositive": "Your message has the potential to be more positive. Please improve it and try again."
   },
   "LoginModal": {
     "title": "Welcome to Kindness Wall! 🌟",

@@ -13,7 +13,8 @@
     "placeholder": "Escreva sua mensagem aqui...",
     "send": "Enviar Gentileza",
     "messageSent": "Mensagem enviada com sucesso",
-    "messageCreationFailed": "Falha ao criar mensagem. Por favor, tente novamente mais tarde."
+    "messageCreationFailed": "Falha ao criar mensagem. Por favor, tente novamente mais tarde.",
+    "sentimentNotPositive": "Sua mensagem tem o potencial de ser mais positiva. Por favor, melhore-a e tente novamente."
   },
   "LoginModal": {
     "title": "Bem-vindo ao Mural de Gentilezas! 🌟",

@@ -8,6 +8,7 @@ import { Session } from '@/app/entities/Session'
 import { useStateWithStorage } from '@/presentation/hooks/useStateWithStorage'
 import { TextArea } from '@/presentation/components/ui/TextArea'
 import { sendMessage } from '@/presentation/func/server/sendMessage'
+import { SentimentNotPositive } from '@/app/errors/SentimentNotPositive'
 
 interface MessageInputProps {
   session: Session | null
@@ -41,10 +42,18 @@ export function MessageInput({
       setIsLoading(true)
       await sendMessage({ text, userID: session.user.id })
       toast.success(t('messageSent'))
-    } catch {
-      toast.error(t('messageCreationFailed'))
+    } catch (error) {
+      handleNewMessageError(error)
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  const handleNewMessageError = (error: unknown) => {
+    if (error instanceof SentimentNotPositive) {
+      toast.error(t('sentimentNotPositive'))
+    } else {
+      toast.error(t('messageCreationFailed'))
     }
   }
 

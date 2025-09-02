@@ -12,6 +12,7 @@ import { signOut } from '@/presentation/func/client/signOut'
 import { useRouter } from 'next/navigation'
 import { sendMessage } from '@/presentation/func/server/sendMessage'
 import { GetMessagesPortFilter } from '@/app/ports/GetMessages'
+import { SentimentNotPositive } from '@/app/errors/SentimentNotPositive'
 
 vi.mock('@/presentation/func/server/sendMessage')
 vi.mock('@/presentation/func/server/getMessages')
@@ -98,6 +99,20 @@ describe('HomeScreen', () => {
 
       expect(
         await screen.findByText(translation.MessageInput.messageCreationFailed),
+      ).toBeDefined()
+    })
+
+    it('should show error message if sentiment is not positive', async () => {
+      vi.mocked(sendMessage).mockRejectedValue(new SentimentNotPositive())
+
+      await user.type(
+        screen.getByPlaceholderText(translation.MessageInput.placeholder),
+        faker.lorem.sentence(20),
+      )
+      await user.click(screen.getByText(translation.MessageInput.send))
+
+      expect(
+        await screen.findByText(translation.MessageInput.sentimentNotPositive),
       ).toBeDefined()
     })
   })
