@@ -1,5 +1,5 @@
 export interface SentimentAnalysisPortResult {
-  sentiment: string
+  sentiment: 'positive' | 'negative' | 'neutral'
   score: number
 }
 
