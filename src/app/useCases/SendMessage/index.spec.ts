@@ -40,4 +40,21 @@ describe('SendMessageUseCase', () => {
       userID,
     })
   })
+
+  it('should throw an error if the sentiment is negative', async () => {
+    vi.mocked(sentimentAnalysisPort.analyze).mockResolvedValue({
+      sentiment: 'negative',
+      score: 0.5,
+    })
+
+    const { text, userID } = message
+    const result = sendMessageUseCase.execute({
+      text,
+      userID,
+    })
+
+    expect(result).rejects.toThrow('Sentiment analysis is not positive')
+    expect(sentimentAnalysisPort.analyze).toHaveBeenCalledWith(message.text)
+    expect(createMessagePort.create).not.toHaveBeenCalled()
+  })
 })

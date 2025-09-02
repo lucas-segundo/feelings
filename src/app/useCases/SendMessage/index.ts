@@ -22,5 +22,7 @@ export class SendMessageUseCase {
         userID: data.userID,
       })
     }
+
+    throw new Error('Sentiment analysis is not positive')
   }
 }
