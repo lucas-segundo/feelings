@@ -29,6 +29,7 @@ describe('CreateMessagePort', () => {
     const result = await createMessagePort.create({
       text: dbMessage.text,
       userID: dbMessage.userID.toString(),
+      language: dbMessage.language,
     })
 
     expect(
@@ -38,11 +39,13 @@ describe('CreateMessagePort', () => {
       text: messages.text,
       createdAt: messages.createdAt,
       userID: messages.userID,
+      language: messages.language,
     })
     expect(result).toEqual({
       ...dbMessage,
       id: dbMessage.id.toString(),
       userID: dbMessage.userID.toString(),
+      language: dbMessage.language,
     })
   })
 })

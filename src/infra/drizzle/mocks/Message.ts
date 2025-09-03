@@ -6,6 +6,7 @@ export const mockDBMessage = (): typeof messages.$inferSelect => ({
   text: faker.lorem.sentence(),
   userID: faker.number.int({ min: 1, max: 1000 }),
   createdAt: faker.date.recent(),
+  language: faker.helpers.arrayElement(['pt', 'en']),
   updatedAt: faker.date.recent(),
   deletedAt: null,
 })
