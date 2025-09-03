@@ -8,7 +8,7 @@ describe('ELDDetectLanguageAdapter', () => {
   const detectLanguagePort = new ELDDetectLanguageAdapter()
 
   it('should detect language', async () => {
-    vi.mocked(eld.detect).mockReturnValue('en')
+    vi.mocked(eld.detect).mockReturnValue({ language: 'en' })
     const result = await detectLanguagePort.detect('Hello, how are you?')
     expect(result).toEqual({ language: 'en' })
     expect(eld.detect).toHaveBeenCalledWith('Hello, how are you?')
