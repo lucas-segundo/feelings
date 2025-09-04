@@ -46,9 +46,9 @@ export class GeminiSentimentAnalysisAdapter implements SentimentAnalysisPort {
     Normalized Score: -1 / 2 = -0.5.
 
     Classification: Finally, the normalized score is used to classify the text into a category. The thresholds for these categories can vary, but a common setup is:
-    Positive: Score > 0.2
-    Neutral: Score between -0.2 and 0.2
-    Negative: Score < -0.2
+    positive: Score > 0.2
+    neutral: Score between -0.2 and 0.2
+    negative: Score < -0.2
 
     Text to analyze: ${text}
     `

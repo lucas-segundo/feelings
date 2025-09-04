@@ -23,6 +23,7 @@
     "clsx": "^2.1.1",
     "dotenv": "^17.2.1",
     "drizzle-orm": "^0.44.4",
+    "eld": "^1.0.1",
     "lucide-react": "^0.539.0",
     "next": "15.4.6",
     "next-intl": "^4.3.4",
