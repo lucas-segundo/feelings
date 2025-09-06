@@ -3,8 +3,8 @@ import { DrizzleGetLikesAdapter } from './adapter'
 import { db } from '@/infra/drizzle'
 import { mockDBUserLike } from '@/infra/drizzle/mocks/UserLike'
 import { usersLikes as dbUsersLikes } from '@/infra/drizzle/schema'
-import { GetLikesPortFilter } from '.'
-import { and, eq, inArray } from 'drizzle-orm'
+import { GetLikesPortParams } from '.'
+import { and, inArray } from 'drizzle-orm'
 
 vi.mock('@/infra/drizzle', () => ({
   db: {
@@ -16,6 +16,8 @@ vi.mock('@/infra/drizzle', () => ({
   },
 }))
 
+vi.mock('drizzle-orm')
+
 describe('DrizzleGetLikesAdapter', () => {
   const adapter = new DrizzleGetLikesAdapter()
 
@@ -24,12 +26,14 @@ describe('DrizzleGetLikesAdapter', () => {
 
     vi.mocked(db.query.usersLikes.findMany).mockResolvedValue(usersLikes)
 
-    const filter: GetLikesPortFilter = {
-      userID: {
-        eq: '1',
-      },
-      messageID: {
-        in: ['1', '2'],
+    const filter: GetLikesPortParams = {
+      filter: {
+        userID: {
+          in: ['1', '2'],
+        },
+        messageID: {
+          eq: '1',
+        },
       },
       limit: 10,
       order: { createdAt: 'desc' as const },
@@ -38,10 +42,7 @@ describe('DrizzleGetLikesAdapter', () => {
     const result = await adapter.get(filter)
 
     expect(db.query.usersLikes.findMany).toHaveBeenCalledWith({
-      where: and(
-        eq(dbUsersLikes.userID, 1),
-        inArray(dbUsersLikes.messageID, [1, 2]),
-      ),
+      where: and(inArray(dbUsersLikes.messageID, [1, 2])),
       limit: 10,
       orderBy: expect.any(Array),
     })

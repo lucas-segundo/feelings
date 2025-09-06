@@ -1,13 +1,15 @@
 import { Like } from '@/app/entities/Like'
 
-export interface GetLikesPortFilter {
-  userID?: {
-    eq?: string
-    in?: string[]
-  }
-  messageID?: {
-    eq?: string
-    in?: string[]
+export interface GetLikesPortParams {
+  filter?: {
+    userID?: {
+      eq?: string
+      in?: string[]
+    }
+    messageID?: {
+      eq?: string
+      in?: string[]
+    }
   }
   limit?: number
   order?: {
@@ -16,5 +18,5 @@ export interface GetLikesPortFilter {
 }
 
 export interface GetLikesPort {
-  get(filter: GetLikesPortFilter): Promise<Like[]>
+  get(params: GetLikesPortParams): Promise<Like[]>
 }

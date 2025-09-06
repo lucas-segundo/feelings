@@ -1,15 +1,15 @@
 import { db } from '@/infra/drizzle'
-import { GetLikesPort, GetLikesPortFilter } from '.'
+import { GetLikesPort, GetLikesPortParams } from '.'
 import { usersLikes } from '@/infra/drizzle/schema'
 import { and, asc, desc, eq, inArray, SQL } from 'drizzle-orm'
 import { Like } from '@/app/entities/Like'
 
 export class DrizzleGetLikesAdapter implements GetLikesPort {
-  async get(filter: GetLikesPortFilter): Promise<Like[]> {
+  async get({ filter, limit, order }: GetLikesPortParams): Promise<Like[]> {
     const data = await db.query.usersLikes.findMany({
       where: and(...this.adaptFilter(filter)),
-      limit: filter.limit,
-      orderBy: this.adaptOrderFilter(filter.order),
+      limit,
+      orderBy: this.adaptOrderFilter(order),
     })
 
     return data.map((userLike) => ({
@@ -20,18 +20,18 @@ export class DrizzleGetLikesAdapter implements GetLikesPort {
     }))
   }
 
-  private adaptFilter(filter: GetLikesPortFilter): SQL[] {
+  private adaptFilter(filter?: GetLikesPortParams['filter']): SQL[] {
     const conditions: SQL[] = []
 
-    if (filter.userID?.eq) {
+    if (filter?.userID?.eq) {
       conditions.push(eq(usersLikes.userID, Number(filter.userID.eq)))
-    } else if (filter.userID?.in) {
+    } else if (filter?.userID?.in) {
       conditions.push(inArray(usersLikes.userID, filter.userID.in.map(Number)))
     }
 
-    if (filter.messageID?.eq) {
+    if (filter?.messageID?.eq) {
       conditions.push(eq(usersLikes.messageID, Number(filter.messageID.eq)))
-    } else if (filter.messageID?.in) {
+    } else if (filter?.messageID?.in) {
       conditions.push(
         inArray(usersLikes.messageID, filter.messageID.in.map(Number)),
       )
@@ -40,7 +40,7 @@ export class DrizzleGetLikesAdapter implements GetLikesPort {
     return conditions
   }
 
-  private adaptOrderFilter(order?: GetLikesPortFilter['order']): SQL[] {
+  private adaptOrderFilter(order?: GetLikesPortParams['order']): SQL[] {
     const orderBy: SQL[] = []
 
     if (order?.createdAt) {
