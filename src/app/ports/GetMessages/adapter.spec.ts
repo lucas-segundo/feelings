@@ -16,7 +16,7 @@ vi.mock('@/infra/drizzle', () => ({
 describe('GetMessagesPort', () => {
   const getMessagesPort = makeGetMessagesPort()
 
-  it('should get messages with default filter', async () => {
+  it('should get messages with default params', async () => {
     const dbMessages = [mockDBMessage(), mockDBMessage()]
 
     vi.mocked(db.query.messages.findMany).mockResolvedValue(dbMessages)
@@ -36,16 +36,16 @@ describe('GetMessagesPort', () => {
     )
   })
 
-  it('should get messages with filter', async () => {
+  it('should get messages with params', async () => {
     const dbMessages = [mockDBMessage()]
-    const filter = {
+    const params = {
       limit: 10,
       order: { createdAt: 'desc' as const },
     }
 
     vi.mocked(db.query.messages.findMany).mockResolvedValue(dbMessages)
 
-    const result = await getMessagesPort.get(filter)
+    const result = await getMessagesPort.get(params)
 
     expect(db.query.messages.findMany).toHaveBeenCalledWith({
       orderBy: expect.any(Array),

@@ -1,6 +1,6 @@
 import { Message } from '@/app/entities/Message'
 
-export interface GetMessagesPortFilter {
+export interface GetMessagesPortParams {
   limit?: number
   order?: {
     [K in 'createdAt']?: 'asc' | 'desc'
@@ -8,5 +8,5 @@ export interface GetMessagesPortFilter {
 }
 
 export interface GetMessagesPort {
-  get(filter: GetMessagesPortFilter): Promise<Message[]>
+  get(params: GetMessagesPortParams): Promise<Message[]>
 }

@@ -1,15 +1,15 @@
 import { db } from '@/infra/drizzle'
-import { GetMessagesPort, GetMessagesPortFilter } from '.'
+import { GetMessagesPort, GetMessagesPortParams } from '.'
 import { messages } from '@/infra/drizzle/schema/tables/messages'
 import { asc, desc, SQL } from 'drizzle-orm'
 
 export class DrizzleGetMessagesAdapter implements GetMessagesPort {
-  async get(filter: GetMessagesPortFilter) {
-    const orderBy = this.adaptOrderFilter(filter?.order)
+  async get({ limit, order }: GetMessagesPortParams) {
+    const orderBy = this.adaptOrderFilter(order)
 
     const data = await db.query.messages.findMany({
       orderBy,
-      limit: filter?.limit,
+      limit,
     })
 
     return data.map((message) => ({
@@ -19,7 +19,7 @@ export class DrizzleGetMessagesAdapter implements GetMessagesPort {
     }))
   }
 
-  private adaptOrderFilter(order?: GetMessagesPortFilter['order']): SQL[] {
+  private adaptOrderFilter(order?: GetMessagesPortParams['order']): SQL[] {
     const orderBy: SQL[] = []
 
     if (order?.createdAt) {

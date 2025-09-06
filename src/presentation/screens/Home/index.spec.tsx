@@ -11,7 +11,7 @@ import { mockSession } from '@/app/entities/Session/mock'
 import { signOut } from '@/presentation/func/client/signOut'
 import { useRouter } from 'next/navigation'
 import { sendMessage } from '@/presentation/func/server/sendMessage'
-import { GetMessagesPortFilter } from '@/app/ports/GetMessages'
+import { GetMessagesPortParams } from '@/app/ports/GetMessages'
 import { SentimentNotPositive } from '@/app/errors/SentimentNotPositive'
 
 vi.mock('@/presentation/func/server/sendMessage')
@@ -129,7 +129,7 @@ describe('HomeScreen', () => {
     it('should show last messages', async () => {
       expect(screen.getByTestId('last-messages-loading')).toBeDefined()
 
-      const serviceParams: GetMessagesPortFilter = {
+      const serviceParams: GetMessagesPortParams = {
         limit: 10,
         order: {
           createdAt: 'desc',
