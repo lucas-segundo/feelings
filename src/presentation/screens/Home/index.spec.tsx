@@ -13,9 +13,11 @@ import { useRouter } from 'next/navigation'
 import { sendMessage } from '@/presentation/func/server/sendMessage'
 import { GetMessagesPortParams } from '@/app/ports/GetMessages'
 import { SentimentNotPositive } from '@/app/errors/SentimentNotPositive'
+import { likeMessages } from '@/presentation/func/server/likeMessages'
 
 vi.mock('@/presentation/func/server/sendMessage')
 vi.mock('@/presentation/func/server/getMessages')
+vi.mock('@/presentation/func/server/likeMessages')
 vi.mock('@/presentation/func/client/signOut')
 
 vi.mock('next/navigation', () => ({
@@ -223,6 +225,26 @@ describe('HomeScreen', () => {
       await user.click(screen.getByTestId('logout-button'))
       expect(signOut).toHaveBeenCalled()
       expect(useRouter().push).toHaveBeenCalledWith('/')
+    })
+  })
+
+  describe('LikeMessage', () => {
+    beforeEach(() => {
+      render(
+        <TestingProviders>
+          <HomeScreen session={session} />
+        </TestingProviders>,
+      )
+    })
+
+    it('should like a message', async () => {
+      const likeButtons = await screen.findAllByTestId('like-button')
+      await user.click(likeButtons[0])
+
+      expect(likeMessages).toHaveBeenCalledWith({
+        messageID: messages[0].id,
+        userID: session.user.id,
+      })
     })
   })
 })

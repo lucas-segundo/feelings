@@ -11,6 +11,7 @@ import { queryClient } from '@/infra/reactQuery'
 import { Session } from '@/app/entities/Session'
 import { SignInButton } from './components/SignInButton'
 import { UserLogged } from './components/UserLogged'
+import { likeMessages } from '@/presentation/func/server/likeMessages'
 
 interface Props {
   session: Session | null
@@ -22,7 +23,7 @@ export default function HomeScreen({ session }: Props) {
 
   const handleOnLikeMessage = async (id: string) => {
     if (session) {
-      console.log('like message', id)
+      likeMessages({ messageID: id, userID: session.user.id })
     } else {
       setIsLoginModalOpen(true)
     }
