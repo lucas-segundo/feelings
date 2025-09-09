@@ -2,7 +2,7 @@ import { Message } from '@/app/entities/Message'
 import { GetLikesPort } from '@/app/ports/GetLikes'
 import { GetMessagesPort } from '@/app/ports/GetMessages'
 
-export interface GetLatestMessagesForUserUseCaseDTO {
+export interface GetLatestMessagesForUserDTO {
   userID: string
   limit?: number
   order?: {
@@ -16,7 +16,7 @@ export class GetLatestMessagesForUserUseCase {
     private readonly getLikesPort: GetLikesPort,
   ) {}
 
-  async execute(dto: GetLatestMessagesForUserUseCaseDTO): Promise<Message[]> {
+  async execute(dto: GetLatestMessagesForUserDTO): Promise<Message[]> {
     const messages = await this.getMessagesPort.get({
       filter: {
         userID: {
