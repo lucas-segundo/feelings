@@ -1,6 +1,11 @@
 import { Message } from '@/app/entities/Message'
 
 export interface GetMessagesPortParams {
+  filter?: {
+    userID?: {
+      eq?: string
+    }
+  }
   limit?: number
   order?: {
     [K in 'createdAt']?: 'asc' | 'desc'

@@ -2,7 +2,10 @@ import { describe, it, expect, vi } from 'vitest'
 import { mockDBMessage } from '@/infra/drizzle/mocks/Message'
 import { db } from '@/infra/drizzle'
 import { makeGetMessagesPort } from './factory'
+import { messages } from '@/infra/drizzle/schema/tables/messages'
+import { and, desc, eq } from 'drizzle-orm'
 
+vi.mock('drizzle-orm')
 vi.mock('@/infra/drizzle', () => ({
   db: {
     query: {
@@ -41,6 +44,11 @@ describe('GetMessagesPort', () => {
     const params = {
       limit: 10,
       order: { createdAt: 'desc' as const },
+      filter: {
+        userID: {
+          eq: '1',
+        },
+      },
     }
 
     vi.mocked(db.query.messages.findMany).mockResolvedValue(dbMessages)
@@ -48,7 +56,8 @@ describe('GetMessagesPort', () => {
     const result = await getMessagesPort.get(params)
 
     expect(db.query.messages.findMany).toHaveBeenCalledWith({
-      orderBy: expect.any(Array),
+      where: and(eq(messages.userID, 1)),
+      orderBy: [desc(messages.createdAt)],
       limit: 10,
     })
     expect(result).toEqual(
