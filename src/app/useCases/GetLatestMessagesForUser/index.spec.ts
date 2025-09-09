@@ -55,4 +55,16 @@ describe('GetLatestMessagesForUserUseCase', () => {
       },
     })
   })
+
+  it('should not get likes if it has no messages', async () => {
+    getMessagesPort.get.mockResolvedValue([])
+
+    const userID = faker.string.uuid()
+    const result = await getLatestMessagesForUserUseCase.execute({
+      userID,
+    })
+
+    expect(result).toEqual([])
+    expect(getLikesPort.get).not.toHaveBeenCalled()
+  })
 })

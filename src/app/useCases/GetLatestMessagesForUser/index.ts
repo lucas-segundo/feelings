@@ -21,6 +21,10 @@ export class GetLatestMessagesForUserUseCase {
       },
     })
 
+    if (messages.length === 0) {
+      return []
+    }
+
     const likes = await this.getLikesPort.get({
       filter: {
         userID: {
