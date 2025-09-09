@@ -4,6 +4,10 @@ import { GetMessagesPort } from '@/app/ports/GetMessages'
 
 interface GetLatestMessagesForUserUseCaseDTO {
   userID: string
+  limit?: number
+  order?: {
+    [K in 'createdAt']?: 'asc' | 'desc'
+  }
 }
 
 export class GetLatestMessagesForUserUseCase {
@@ -19,6 +23,8 @@ export class GetLatestMessagesForUserUseCase {
           eq: dto.userID,
         },
       },
+      limit: dto.limit,
+      order: dto.order,
     })
 
     if (messages.length === 0) {

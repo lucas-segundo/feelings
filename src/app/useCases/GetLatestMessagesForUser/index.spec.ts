@@ -32,25 +32,29 @@ describe('GetLatestMessagesForUserUseCase', () => {
     getMessagesPort.get.mockResolvedValue(messages)
     getLikesPort.get.mockResolvedValue(likes)
 
-    const userID = faker.string.uuid()
-    const result = await getLatestMessagesForUserUseCase.execute({
-      userID,
-    })
+    const params = {
+      userID: faker.string.uuid(),
+      limit: 10,
+      order: { createdAt: 'desc' as const },
+    }
+    const result = await getLatestMessagesForUserUseCase.execute(params)
 
     messages.pop()
     expect(result).toEqual(messages)
     expect(getMessagesPort.get).toHaveBeenCalledWith({
       filter: {
         userID: {
-          eq: userID,
+          eq: params.userID,
         },
       },
+      limit: params.limit,
+      order: params.order,
     })
 
     expect(getLikesPort.get).toHaveBeenCalledWith({
       filter: {
         userID: {
-          eq: userID,
+          eq: params.userID,
         },
       },
     })
