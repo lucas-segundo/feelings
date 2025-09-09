@@ -2,7 +2,7 @@ import { Message } from '@/app/entities/Message'
 import { GetLikesPort } from '@/app/ports/GetLikes'
 import { GetMessagesPort } from '@/app/ports/GetMessages'
 
-interface GetLatestMessagesForUserUseCaseDTO {
+export interface GetLatestMessagesForUserUseCaseDTO {
   userID: string
   limit?: number
   order?: {
