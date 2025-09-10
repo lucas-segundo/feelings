@@ -37,6 +37,7 @@ describe('HomeScreen', () => {
   beforeEach(() => {
     vi.mocked(sendMessage).mockResolvedValue(message)
     vi.mocked(getMessages).mockResolvedValue(messages)
+    vi.mocked(getLatestMessagesForUser).mockResolvedValue(messages)
   })
 
   describe('MessageCreation', () => {
@@ -162,7 +163,6 @@ describe('HomeScreen', () => {
     })
 
     it('should show messages for user', async () => {
-      vi.mocked(getLatestMessagesForUser).mockResolvedValue(messages)
       render(
         <TestingProviders>
           <HomeScreen session={session} />
@@ -182,6 +182,22 @@ describe('HomeScreen', () => {
       }
 
       expect(screen.queryByTestId('last-messages-loading')).toBeNull()
+    })
+
+    it('should like a message', async () => {
+      render(
+        <TestingProviders>
+          <HomeScreen session={session} />
+        </TestingProviders>,
+      )
+
+      const likeButtons = await screen.findAllByTestId('like-button')
+      await user.click(likeButtons[0])
+
+      expect(likeMessages).toHaveBeenCalledWith({
+        messageID: messages[0].id,
+        userID: session.user.id,
+      })
     })
   })
 
@@ -256,26 +272,6 @@ describe('HomeScreen', () => {
       await user.click(screen.getByTestId('logout-button'))
       expect(signOut).toHaveBeenCalled()
       expect(useRouter().push).toHaveBeenCalledWith('/')
-    })
-  })
-
-  describe('LikeMessage', () => {
-    beforeEach(() => {
-      render(
-        <TestingProviders>
-          <HomeScreen session={session} />
-        </TestingProviders>,
-      )
-    })
-
-    it('should like a message', async () => {
-      const likeButtons = await screen.findAllByTestId('like-button')
-      await user.click(likeButtons[0])
-
-      expect(likeMessages).toHaveBeenCalledWith({
-        messageID: messages[0].id,
-        userID: session.user.id,
-      })
     })
   })
 })
