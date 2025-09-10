@@ -203,6 +203,8 @@ describe('HomeScreen', () => {
 
   describe('LoginModal', () => {
     beforeEach(() => {
+      vi.mocked(getMessages).mockResolvedValue(messages)
+
       render(
         <TestingProviders>
           <HomeScreen session={null} />
