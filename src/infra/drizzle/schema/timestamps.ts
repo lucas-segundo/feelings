@@ -1,10 +1,11 @@
-import { sql } from 'drizzle-orm'
 import { timestamp } from 'drizzle-orm/pg-core'
 
 export const defaultTimestamps = {
-  createdAt: timestamp().defaultNow().notNull(),
+  createdAt: timestamp()
+    .notNull()
+    .$defaultFn(() => new Date()),
   updatedAt: timestamp()
-    .defaultNow()
-    .$onUpdate(() => sql`now()`),
+    .$defaultFn(() => new Date())
+    .$onUpdate(() => new Date()),
   deletedAt: timestamp(),
 }
