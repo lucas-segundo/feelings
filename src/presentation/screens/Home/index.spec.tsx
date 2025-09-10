@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { it, describe, vi, beforeEach, expect } from 'vitest'
 import { mockMessage } from '@/app/entities/Message/mock'
@@ -14,9 +14,11 @@ import { sendMessage } from '@/presentation/func/server/sendMessage'
 import { GetMessagesPortParams } from '@/app/ports/GetMessages'
 import { SentimentNotPositive } from '@/app/errors/SentimentNotPositive'
 import { likeMessages } from '@/presentation/func/server/likeMessages'
+import { getLatestMessagesForUser } from '@/presentation/func/server/getLatestMessagesForUser'
 
 vi.mock('@/presentation/func/server/sendMessage')
 vi.mock('@/presentation/func/server/getMessages')
+vi.mock('@/presentation/func/server/getLatestMessagesForUser')
 vi.mock('@/presentation/func/server/likeMessages')
 vi.mock('@/presentation/func/client/signOut')
 
@@ -120,15 +122,13 @@ describe('HomeScreen', () => {
   })
 
   describe('LastMessages', () => {
-    beforeEach(() => {
+    it('should show last messages', async () => {
       render(
         <TestingProviders>
-          <HomeScreen session={session} />
+          <HomeScreen session={null} />
         </TestingProviders>,
       )
-    })
 
-    it('should show last messages', async () => {
       expect(screen.getByTestId('last-messages-loading')).toBeDefined()
 
       const serviceParams: GetMessagesPortParams = {
@@ -147,9 +147,40 @@ describe('HomeScreen', () => {
     })
 
     it('should show no messages if there are no messages', async () => {
+      render(
+        <TestingProviders>
+          <HomeScreen session={null} />
+        </TestingProviders>,
+      )
+
       vi.mocked(getMessages).mockResolvedValue([])
 
       expect(await screen.findByText(translation.Home.noMessages)).toBeDefined()
+      await waitFor(() => {
+        expect(screen.queryByTestId('last-messages-loading')).toBeNull()
+      })
+    })
+
+    it('should show messages for user', async () => {
+      vi.mocked(getLatestMessagesForUser).mockResolvedValue(messages)
+      render(
+        <TestingProviders>
+          <HomeScreen session={session} />
+        </TestingProviders>,
+      )
+
+      expect(getLatestMessagesForUser).toHaveBeenCalledWith({
+        userID: session.user.id,
+        limit: 10,
+        order: {
+          createdAt: 'desc',
+        },
+      })
+
+      for (const message of messages) {
+        expect(await screen.findByText(message.text)).toBeDefined()
+      }
+
       expect(screen.queryByTestId('last-messages-loading')).toBeNull()
     })
   })

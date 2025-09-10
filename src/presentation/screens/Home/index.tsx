@@ -55,7 +55,10 @@ export default function HomeScreen({ session }: Props) {
           <Separator className="my-8" />
 
           <div className="mb-6">
-            <LastMessages onLikeMessage={handleOnLikeMessage} />
+            <LastMessages
+              session={session}
+              onLikeMessage={handleOnLikeMessage}
+            />
           </div>
 
           <div className="text-center text-sm text-gray-600 mt-8">

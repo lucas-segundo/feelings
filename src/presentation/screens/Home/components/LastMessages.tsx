@@ -1,27 +1,46 @@
 import { ScrollArea } from '@/presentation/components/ui/ScrollArea'
 import { useTranslations } from 'next-intl'
-import { getMessages } from '@/presentation/func/server/getMessages'
 
 import { useQueryHandler } from '@/presentation/hooks/useQueryHandler'
 import { LoaderCircle } from 'lucide-react'
 import { MessageCard } from './MessageCard'
+import { getLatestMessagesForUser } from '@/presentation/func/server/getLatestMessagesForUser'
+import { Session } from '@/app/entities/Session'
+import { getMessages } from '@/presentation/func/server/getMessages'
 
 interface LastMessagesProps {
+  session: Session | null
   onLikeMessage: (id: string) => void
 }
 
-export default function LastMessages({ onLikeMessage }: LastMessagesProps) {
+export default function LastMessages({
+  session,
+  onLikeMessage,
+}: LastMessagesProps) {
   const t = useTranslations('Home')
   const { data = [], isLoading } = useQueryHandler({
     key: 'messages',
-    execute: async () =>
-      getMessages({
+    execute: () => handleGetMessages(),
+  })
+
+  const handleGetMessages = async () => {
+    if (session) {
+      return getLatestMessagesForUser({
+        userID: session.user.id,
         limit: 10,
         order: {
           createdAt: 'desc',
         },
-      }),
-  })
+      })
+    } else {
+      return getMessages({
+        limit: 10,
+        order: {
+          createdAt: 'desc',
+        },
+      })
+    }
+  }
 
   return (
     <div>
