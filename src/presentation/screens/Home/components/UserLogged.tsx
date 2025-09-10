@@ -12,8 +12,8 @@ interface Props {
 export const UserLogged = ({ session }: Props) => {
   const router = useRouter()
 
-  const handleLogout = () => {
-    signOut()
+  const handleLogout = async () => {
+    await signOut()
     router.push('/')
   }
 
