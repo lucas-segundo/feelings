@@ -15,9 +15,12 @@ import { GetMessagesPortParams } from '@/app/ports/GetMessages'
 import { SentimentNotPositive } from '@/app/errors/SentimentNotPositive'
 import { likeMessages } from '@/presentation/func/server/likeMessages'
 import { getLatestMessagesForUser } from '@/presentation/func/server/getLatestMessagesForUser'
+import { getLikes } from '@/presentation/func/server/getLikes'
+import { mockLike } from '@/app/entities/Like/mock'
 
 vi.mock('@/presentation/func/server/sendMessage')
 vi.mock('@/presentation/func/server/getMessages')
+vi.mock('@/presentation/func/server/getLikes')
 vi.mock('@/presentation/func/server/getLatestMessagesForUser')
 vi.mock('@/presentation/func/server/likeMessages')
 vi.mock('@/presentation/func/client/signOut')
@@ -117,8 +120,14 @@ describe('HomeScreen', () => {
   })
 
   describe('LastMessages', () => {
-    it('should show last messages', async () => {
+    it('should show last messages with likes', async () => {
       vi.mocked(getMessages).mockResolvedValue(messages)
+
+      const likes = [
+        { ...mockLike(), messageID: messages[0].id },
+        { ...mockLike(), messageID: messages[0].id },
+      ]
+      vi.mocked(getLikes).mockResolvedValue(likes)
 
       render(
         <TestingProviders>
@@ -136,6 +145,13 @@ describe('HomeScreen', () => {
       }
 
       expect(getMessages).toHaveBeenCalledWith(serviceParams)
+
+      const likesCounts = await screen.findAllByTestId('likes-count')
+
+      expect(likesCounts[0]).toHaveTextContent('2')
+      expect(likesCounts[1]).toHaveTextContent('0')
+      expect(likesCounts[2]).toHaveTextContent('0')
+
       for (const message of messages) {
         expect(await screen.findByText(message.text)).toBeDefined()
       }

@@ -7,6 +7,7 @@ import { MessageCard } from './MessageCard'
 import { getLatestMessagesForUser } from '@/presentation/func/server/getLatestMessagesForUser'
 import { Session } from '@/app/entities/Session'
 import { getMessages } from '@/presentation/func/server/getMessages'
+import { getLikes } from '@/presentation/func/server/getLikes'
 
 interface LastMessagesProps {
   session: Session | null
@@ -18,9 +19,14 @@ export default function LastMessages({
   onLikeMessage,
 }: LastMessagesProps) {
   const t = useTranslations('Home')
-  const { data = [], isLoading } = useQueryHandler({
+  const { data = { messages: [], likes: [] }, isLoading } = useQueryHandler({
     key: 'messages',
-    execute: () => handleGetMessages(),
+    execute: async () => {
+      const messages = await handleGetMessages()
+      const messageIDs = messages.map((message) => message.id)
+      const likes = await handleGetLikes(messageIDs)
+      return { messages, likes }
+    },
   })
 
   const handleGetMessages = async () => {
@@ -42,6 +48,16 @@ export default function LastMessages({
     }
   }
 
+  const handleGetLikes = async (messageIDs: string[]) => {
+    return getLikes({
+      filter: {
+        messageID: {
+          in: messageIDs,
+        },
+      },
+    })
+  }
+
   return (
     <div>
       <h2 className="text-2xl text-center mb-6 text-gray-800">
@@ -60,16 +76,17 @@ export default function LastMessages({
             </div>
           )}
 
-          {data.length === 0 && (
+          {data.messages.length === 0 && (
             <div className="text-center py-12 text-gray-500">
               <p>{t('noMessages')}</p>
             </div>
           )}
 
-          {data.map((message) => (
+          {data.messages.map((message) => (
             <MessageCard
               key={message.id}
               message={message}
+              likes={data.likes.filter((like) => like.messageID === message.id)}
               onLike={onLikeMessage}
             />
           ))}

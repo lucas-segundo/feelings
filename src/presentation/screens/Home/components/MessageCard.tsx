@@ -3,13 +3,15 @@ import { Card } from '@/presentation/components/ui/Card'
 import { Button } from '@/presentation/components/ui/Button'
 import { Heart } from 'lucide-react'
 import { Message } from '@/app/entities/Message'
+import { Like } from '@/app/entities/Like'
 
 interface MessageCardProps {
   message: Message
+  likes: Like[]
   onLike: (id: string) => void
 }
 
-export function MessageCard({ message, onLike }: MessageCardProps) {
+export function MessageCard({ message, likes, onLike }: MessageCardProps) {
   const [hasLiked, setHasLiked] = useState(false)
   const [hasDisliked, setHasDisliked] = useState(false)
 
@@ -40,7 +42,9 @@ export function MessageCard({ message, onLike }: MessageCardProps) {
               }`}
             >
               <Heart className={`w-4 h-4 ${hasLiked ? 'fill-current' : ''}`} />
-              <span>{hasLiked ? 1 : 0}</span>
+              <span data-testid="likes-count">
+                {hasLiked ? likes.length + 1 : likes.length}
+              </span>
             </Button>
           </div>
 
