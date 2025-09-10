@@ -34,11 +34,6 @@ describe('HomeScreen', () => {
   const messages = [mockMessage(), mockMessage(), mockMessage()]
   const session = mockSession()
 
-  beforeEach(() => {
-    vi.mocked(getMessages).mockResolvedValue(messages)
-    vi.mocked(getLatestMessagesForUser).mockResolvedValue(messages)
-  })
-
   describe('MessageCreation', () => {
     beforeEach(() => {
       render(
@@ -123,6 +118,8 @@ describe('HomeScreen', () => {
 
   describe('LastMessages', () => {
     it('should show last messages', async () => {
+      vi.mocked(getMessages).mockResolvedValue(messages)
+
       render(
         <TestingProviders>
           <HomeScreen session={null} />
@@ -147,13 +144,13 @@ describe('HomeScreen', () => {
     })
 
     it('should show no messages if there are no messages', async () => {
+      vi.mocked(getMessages).mockResolvedValue([])
+
       render(
         <TestingProviders>
           <HomeScreen session={null} />
         </TestingProviders>,
       )
-
-      vi.mocked(getMessages).mockResolvedValue([])
 
       expect(await screen.findByText(translation.Home.noMessages)).toBeDefined()
       await waitFor(() => {
@@ -162,6 +159,8 @@ describe('HomeScreen', () => {
     })
 
     it('should show messages for user', async () => {
+      vi.mocked(getLatestMessagesForUser).mockResolvedValue(messages)
+
       render(
         <TestingProviders>
           <HomeScreen session={session} />
@@ -184,6 +183,8 @@ describe('HomeScreen', () => {
     })
 
     it('should like a message', async () => {
+      vi.mocked(getLatestMessagesForUser).mockResolvedValue(messages)
+
       render(
         <TestingProviders>
           <HomeScreen session={session} />
