@@ -35,7 +35,6 @@ describe('HomeScreen', () => {
   const session = mockSession()
 
   beforeEach(() => {
-    vi.mocked(sendMessage).mockResolvedValue(message)
     vi.mocked(getMessages).mockResolvedValue(messages)
     vi.mocked(getLatestMessagesForUser).mockResolvedValue(messages)
   })
