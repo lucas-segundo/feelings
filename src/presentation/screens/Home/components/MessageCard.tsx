@@ -6,7 +6,7 @@ import { Message } from '@/app/entities/Message'
 import { Like } from '@/app/entities/Like'
 
 interface MessageCardProps {
-  hasLiked: boolean
+  hasUserLiked: boolean
   message: Message
   likes: Like[]
   onLike: (id: string) => void
@@ -18,13 +18,13 @@ export function MessageCard({
   likes,
   onLike,
   onDislike,
-  hasLiked,
+  hasUserLiked,
 }: MessageCardProps) {
-  const [hasLikedState, setHasLikedState] = useState(hasLiked)
+  const [hasUserLikedState, setHasUserLikedState] = useState(hasUserLiked)
   const [likesCount, setLikesCount] = useState(likes.length)
 
   const handleLike = () => {
-    if (hasLikedState) {
+    if (hasUserLikedState) {
       onDislike(message.id)
       setLikesCount((prev) => prev - 1)
     } else {
@@ -32,7 +32,7 @@ export function MessageCard({
       setLikesCount((prev) => prev + 1)
     }
 
-    setHasLikedState((prev) => !prev)
+    setHasUserLikedState((prev) => !prev)
   }
 
   return (
@@ -48,10 +48,14 @@ export function MessageCard({
               size="sm"
               onClick={handleLike}
               className={`flex items-center space-x-1 hover:bg-amber-50 ${
-                hasLiked ? 'text-amber-600 bg-amber-50' : 'text-gray-600'
+                hasUserLikedState
+                  ? 'text-amber-600 bg-amber-50'
+                  : 'text-gray-600'
               }`}
             >
-              <Heart className={`w-4 h-4 ${hasLiked ? 'fill-current' : ''}`} />
+              <Heart
+                className={`w-4 h-4 ${hasUserLikedState ? 'fill-current' : ''}`}
+              />
               <span data-testid="likes-count">{likesCount}</span>
             </Button>
           </div>

@@ -178,6 +178,12 @@ describe('HomeScreen', () => {
 
     it('should show messages for user', async () => {
       vi.mocked(getLatestMessagesForUser).mockResolvedValue(messages)
+      const likes = [
+        { ...mockLike(), messageID: messages[0].id },
+        { ...mockLike(), messageID: messages[0].id },
+        { ...mockLike(), messageID: messages[1].id, userID: session.user.id },
+      ]
+      vi.mocked(getLikes).mockResolvedValue(likes)
 
       render(
         <TestingProviders>
@@ -196,6 +202,18 @@ describe('HomeScreen', () => {
       for (const message of messages) {
         expect(await screen.findByText(message.text)).toBeDefined()
       }
+
+      const likesCounts = await screen.findAllByTestId('likes-count')
+      const likesButtons = await screen.findAllByTestId('like-button')
+
+      expect(likesCounts[0]).toHaveTextContent('2')
+      expect(likesButtons[0]).toHaveClass('text-gray-600')
+
+      expect(likesCounts[1]).toHaveTextContent('1')
+      expect(likesButtons[1]).toHaveClass('text-amber-600 bg-amber-50')
+
+      expect(likesCounts[2]).toHaveTextContent('0')
+      expect(likesButtons[2]).toHaveClass('text-gray-600')
 
       expect(screen.queryByTestId('last-messages-loading')).toBeNull()
     })

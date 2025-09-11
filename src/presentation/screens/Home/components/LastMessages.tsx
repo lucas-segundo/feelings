@@ -91,8 +91,10 @@ export default function LastMessages({
               likes={data.likes.filter((like) => like.messageID === message.id)}
               onLike={onLikeMessage}
               onDislike={onDislikeMessage}
-              hasLiked={data.likes.some(
-                (like) => like.messageID === message.id,
+              hasUserLiked={data.likes.some(
+                (like) =>
+                  like.messageID === message.id &&
+                  like.userID === session?.user.id,
               )}
             />
           ))}
