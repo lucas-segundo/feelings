@@ -17,6 +17,7 @@ import { likeMessages } from '@/presentation/func/server/likeMessages'
 import { getLatestMessagesForUser } from '@/presentation/func/server/getLatestMessagesForUser'
 import { getLikes } from '@/presentation/func/server/getLikes'
 import { mockLike } from '@/app/entities/Like/mock'
+import { deleteLike } from '@/presentation/func/server/deleteLike'
 
 vi.mock('@/presentation/func/server/sendMessage')
 vi.mock('@/presentation/func/server/getMessages')
@@ -24,6 +25,7 @@ vi.mock('@/presentation/func/server/getLikes')
 vi.mock('@/presentation/func/server/getLatestMessagesForUser')
 vi.mock('@/presentation/func/server/likeMessages')
 vi.mock('@/presentation/func/client/signOut')
+vi.mock('@/presentation/func/server/deleteLike')
 
 vi.mock('next/navigation', () => ({
   useRouter: vi.fn().mockReturnValue({
@@ -200,6 +202,7 @@ describe('HomeScreen', () => {
 
     it('should like a message', async () => {
       vi.mocked(getLatestMessagesForUser).mockResolvedValue(messages)
+      vi.mocked(getLikes).mockResolvedValue([])
 
       render(
         <TestingProviders>
@@ -211,6 +214,31 @@ describe('HomeScreen', () => {
       await user.click(likeButtons[0])
 
       expect(likeMessages).toHaveBeenCalledWith({
+        messageID: messages[0].id,
+        userID: session.user.id,
+      })
+    })
+
+    it('should deslike a message', async () => {
+      vi.mocked(getLatestMessagesForUser).mockResolvedValue(messages)
+      vi.mocked(getLikes).mockResolvedValue([])
+
+      render(
+        <TestingProviders>
+          <HomeScreen session={session} />
+        </TestingProviders>,
+      )
+
+      const likeButtons = await screen.findAllByTestId('like-button')
+      const likesCounts = await screen.findAllByTestId('likes-count')
+
+      await user.click(likeButtons[0])
+      expect(likesCounts[0]).toHaveTextContent('1')
+
+      await user.click(likeButtons[0])
+      expect(likesCounts[0]).toHaveTextContent('0')
+
+      expect(deleteLike).toHaveBeenCalledWith({
         messageID: messages[0].id,
         userID: session.user.id,
       })

@@ -6,23 +6,33 @@ import { Message } from '@/app/entities/Message'
 import { Like } from '@/app/entities/Like'
 
 interface MessageCardProps {
+  hasLiked: boolean
   message: Message
   likes: Like[]
   onLike: (id: string) => void
+  onDislike: (id: string) => void
 }
 
-export function MessageCard({ message, likes, onLike }: MessageCardProps) {
-  const [hasLiked, setHasLiked] = useState(false)
-  const [hasDisliked, setHasDisliked] = useState(false)
+export function MessageCard({
+  message,
+  likes,
+  onLike,
+  onDislike,
+  hasLiked,
+}: MessageCardProps) {
+  const [hasLikedState, setHasLikedState] = useState(hasLiked)
+  const [likesCount, setLikesCount] = useState(likes.length)
 
   const handleLike = () => {
-    if (!hasLiked) {
+    if (hasLikedState) {
+      onDislike(message.id)
+      setLikesCount((prev) => prev - 1)
+    } else {
       onLike(message.id)
-      setHasLiked(true)
-      if (hasDisliked) {
-        setHasDisliked(false)
-      }
+      setLikesCount((prev) => prev + 1)
     }
+
+    setHasLikedState((prev) => !prev)
   }
 
   return (
@@ -42,9 +52,7 @@ export function MessageCard({ message, likes, onLike }: MessageCardProps) {
               }`}
             >
               <Heart className={`w-4 h-4 ${hasLiked ? 'fill-current' : ''}`} />
-              <span data-testid="likes-count">
-                {hasLiked ? likes.length + 1 : likes.length}
-              </span>
+              <span data-testid="likes-count">{likesCount}</span>
             </Button>
           </div>
 

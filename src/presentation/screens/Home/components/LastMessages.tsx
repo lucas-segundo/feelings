@@ -12,11 +12,13 @@ import { getLikes } from '@/presentation/func/server/getLikes'
 interface LastMessagesProps {
   session: Session | null
   onLikeMessage: (id: string) => void
+  onDislikeMessage: (id: string) => void
 }
 
 export default function LastMessages({
   session,
   onLikeMessage,
+  onDislikeMessage,
 }: LastMessagesProps) {
   const t = useTranslations('Home')
   const { data = { messages: [], likes: [] }, isLoading } = useQueryHandler({
@@ -88,6 +90,10 @@ export default function LastMessages({
               message={message}
               likes={data.likes.filter((like) => like.messageID === message.id)}
               onLike={onLikeMessage}
+              onDislike={onDislikeMessage}
+              hasLiked={data.likes.some(
+                (like) => like.messageID === message.id,
+              )}
             />
           ))}
         </div>
