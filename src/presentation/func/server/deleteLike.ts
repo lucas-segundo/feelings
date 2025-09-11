@@ -1,3 +1,5 @@
+'use server'
+
 import { DeleteLikePortParams } from '@/app/ports/DeleteLike'
 import { makeDeleteLikePort } from '@/app/ports/DeleteLike/factory'
 
