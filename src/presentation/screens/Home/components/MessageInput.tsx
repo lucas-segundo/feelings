@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 import { Session } from '@/app/entities/Session'
 import { useStateWithStorage } from '@/presentation/hooks/useStateWithStorage'
-import { TextArea } from '@/presentation/components/ui/Textarea'
+import { Textarea } from '@/presentation/components/ui/Textarea'
 import { sendMessage } from '@/presentation/func/server/sendMessage'
 import { SentimentNotPositive } from '@/app/errors/SentimentNotPositive'
 
@@ -67,7 +67,7 @@ export function MessageInput({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">
-            <TextArea
+            <Textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder={t('placeholder')}
