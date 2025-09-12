@@ -1,0 +1,49 @@
+name: CI/CD
+
+env:
+  DOCKER_IMAGE_NAME: feelings:${{ github.ref_name }}
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  ci:
+    environment: ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build dev docker image
+        run: docker build -t ${{ env.DOCKER_IMAGE_NAME }} . --target dev
+
+      - name: Run unit tests
+        run: docker run ${{ env.DOCKER_IMAGE_NAME }} npm run test
+
+      - name: Run migrations for production
+        run: docker run -e DATABASE_URL=${{ secrets.DATABASE_URL }} ${{ env.DOCKER_IMAGE_NAME }} npm run db:migrate
+
+  cd:
+    needs: ci
+    environment: ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build Prod Docker image and push to DockerHub
+        uses: docker/build-push-action@v5
+        with:
+          target: prod
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}
+
+      # - name: Trigger deploy hook
+      #   run: curl -X POST ${{ secrets.DEPLOY_HOOK_URL }}
