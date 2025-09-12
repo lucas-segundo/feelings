@@ -33,22 +33,22 @@ describe('GeminiSentimentAnalysisAdapter', () => {
     })
   })
 
-  it('should throw an error if the response is undefined', () => {
+  it('should throw an error if the response is undefined', async () => {
     vi.mocked(gemini.models.generateContent).mockResolvedValue({
       text: undefined,
     } as unknown as GenerateContentResponse)
 
-    expect(adapter.analyze(faker.lorem.sentence())).rejects.toThrow(
+    await expect(adapter.analyze(faker.lorem.sentence())).rejects.toThrow(
       'Failed to analyze sentiment',
     )
   })
 
-  it('should throw an error if response doesnt contain sentiment or score', () => {
+  it('should throw an error if response doesnt contain sentiment or score', async () => {
     vi.mocked(gemini.models.generateContent).mockResolvedValue({
       text: '{"invalid": "response"}',
     } as unknown as GenerateContentResponse)
 
-    expect(adapter.analyze(faker.lorem.sentence())).rejects.toThrow(
+    await expect(adapter.analyze(faker.lorem.sentence())).rejects.toThrow(
       'Gemini API returned an invalid response',
     )
   })

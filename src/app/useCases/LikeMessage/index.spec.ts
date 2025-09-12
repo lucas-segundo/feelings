@@ -50,6 +50,6 @@ describe('LikeMessageUseCase', () => {
 
     const result = likeMessageUseCase.execute(dto)
 
-    expect(result).rejects.toThrow(LikeAlreadyExists)
+    await expect(result).rejects.toThrow(LikeAlreadyExists)
   })
 })

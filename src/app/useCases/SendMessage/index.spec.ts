@@ -64,7 +64,7 @@ describe('SendMessageUseCase', () => {
       userID,
     })
 
-    expect(result).rejects.toThrow(SentimentNotPositive)
+    await expect(result).rejects.toThrow(SentimentNotPositive)
     expect(sentimentAnalysisPort.analyze).toHaveBeenCalledWith(message.text)
     expect(createMessagePort.create).not.toHaveBeenCalled()
     expect(detectLanguagePort.detect).not.toHaveBeenCalled()
