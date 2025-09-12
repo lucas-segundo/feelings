@@ -15,14 +15,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build dev docker image
-        run: docker build -t ${{ env.DOCKER_IMAGE_NAME }} . --target dev
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linting
+        run: npm run lint
 
       - name: Run unit tests
-        run: docker run ${{ env.DOCKER_IMAGE_NAME }} npm run test
+        run: npm run test
 
       - name: Run migrations for production
-        run: docker run -e DATABASE_URL=${{ secrets.DATABASE_URL }} ${{ env.DOCKER_IMAGE_NAME }} npm run db:migrate
+        run: npm run db:migrate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
   cd:
     needs: ci
