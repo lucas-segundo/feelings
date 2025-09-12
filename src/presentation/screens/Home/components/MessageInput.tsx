@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 import { Session } from '@/app/entities/Session'
 import { useStateWithStorage } from '@/presentation/hooks/useStateWithStorage'
-import { TextArea } from '@/presentation/components/ui/TextArea'
+import { TextArea } from '@/presentation/components/ui/Textarea'
 import { sendMessage } from '@/presentation/func/server/sendMessage'
 import { SentimentNotPositive } from '@/app/errors/SentimentNotPositive'
 
