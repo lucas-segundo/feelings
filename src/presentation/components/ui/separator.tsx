@@ -5,7 +5,7 @@ import * as SeparatorPrimitive from '@radix-ui/react-separator'
 
 import { cn } from '@/presentation/utils/cn'
 
-function Separator({
+export function Separator({
   className,
   orientation = 'horizontal',
   decorative = true,
@@ -24,5 +24,3 @@ function Separator({
     />
   )
 }
-
-export { Separator }

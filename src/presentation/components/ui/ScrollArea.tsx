@@ -5,7 +5,7 @@ import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area'
 
 import { cn } from '@/presentation/utils/cn'
 
-function ScrollArea({
+export function ScrollArea({
   className,
   children,
   ...props
@@ -28,7 +28,7 @@ function ScrollArea({
   )
 }
 
-function ScrollBar({
+export function ScrollBar({
   className,
   orientation = 'vertical',
   ...props
@@ -54,5 +54,3 @@ function ScrollBar({
     </ScrollAreaPrimitive.ScrollAreaScrollbar>
   )
 }
-
-export { ScrollArea, ScrollBar }

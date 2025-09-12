@@ -2,7 +2,10 @@ import * as React from 'react'
 
 import { cn } from '@/presentation/utils/cn'
 
-function TextArea({ className, ...props }: React.ComponentProps<'textarea'>) {
+export function TextArea({
+  className,
+  ...props
+}: React.ComponentProps<'textarea'>) {
   return (
     <textarea
       data-slot="textarea"
@@ -14,5 +17,3 @@ function TextArea({ className, ...props }: React.ComponentProps<'textarea'>) {
     />
   )
 }
-
-export { TextArea }
