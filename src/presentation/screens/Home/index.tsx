@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { MessageInput } from './components/MessageInput'
 import { useTranslations } from 'next-intl'
-import { Separator } from '@/presentation/components/ui/Separator'
 import LastMessages from './components/LastMessages'
 import { LoginModal } from '@/presentation/components/LoginModal'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -13,6 +12,7 @@ import { SignInButton } from './components/SignInButton'
 import { UserLogged } from './components/UserLogged'
 import { likeMessages } from '@/presentation/func/server/likeMessages'
 import { deleteLike } from '@/presentation/func/server/deleteLike'
+import { Separator } from '@/presentation/components/ui/Separator'
 
 interface Props {
   session: Session | null
