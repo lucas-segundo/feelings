@@ -88,6 +88,7 @@ export default function LastMessages({
             <MessageCard
               key={message.id}
               message={message}
+              session={session}
               likes={data.likes.filter((like) => like.messageID === message.id)}
               onLike={onLikeMessage}
               onDislike={onDislikeMessage}

@@ -4,8 +4,10 @@ import { Button } from '@/presentation/components/ui/Button'
 import { Heart } from 'lucide-react'
 import { Message } from '@/app/entities/Message'
 import { Like } from '@/app/entities/Like'
+import { Session } from '@/app/entities/Session'
 
 interface MessageCardProps {
+  session: Session | null
   hasUserLiked: boolean
   message: Message
   likes: Like[]
@@ -14,6 +16,7 @@ interface MessageCardProps {
 }
 
 export function MessageCard({
+  session,
   message,
   likes,
   onLike,
@@ -24,6 +27,10 @@ export function MessageCard({
   const [likesCount, setLikesCount] = useState(likes.length)
 
   const handleLike = () => {
+    if (!session) {
+      return onLike(message.id)
+    }
+
     if (hasUserLikedState) {
       onDislike(message.id)
       setLikesCount((prev) => prev - 1)

@@ -293,8 +293,10 @@ describe('HomeScreen', () => {
 
     it('should open it after click on like button', async () => {
       const likeButtons = await screen.findAllByTestId('like-button')
+      const likesCounts = await screen.findAllByTestId('likes-count')
       await user.click(likeButtons[0])
       expect(await screen.findByTestId('login-modal')).toBeDefined()
+      expect(likesCounts[0]).toHaveTextContent('0')
     })
   })
 
