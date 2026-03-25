@@ -1,23 +1,32 @@
 // Loaded by statusbar_command (see .vscode/settings.json).
 module.exports = function runPrSizeStatusbar(vscode, statusBarItem) {
+  const cp = require('child_process')
+
   try {
-    const cp = require('child_process')
-
-    const MAX_GREEN = 20
-    const MAX_YELLOW = 30
-
+    // 1. Pega o caminho raiz do projeto aberto no VS Code/Cursor
     const wsPath = vscode.workspace.workspaceFolders[0].uri.fsPath
+
+    // 2. Comando git para contar os arquivos modificados em relação à main
     const cmd = 'git diff --name-only main...HEAD 2>/dev/null | wc -l'
+
+    // 3. Executa o comando e pega o número
     const res = cp.execSync(cmd, { cwd: wsPath, encoding: 'utf8' }).trim()
-    const count = parseInt(res, 10) || 0
+    const count = parseInt(res) || 0
 
-    let icon
-    if (count <= MAX_GREEN) icon = '🟢'
-    else if (count <= MAX_YELLOW) icon = '🟡'
-    else icon = '🔴'
+    // 4. Lógica de Cores e Ícones
+    let icon = '🟢' // Reseta a cor de fundo para o padrão
 
+    if (count > 30) {
+      icon = '🔴'
+    } else if (count > 20) {
+      icon = '🟡'
+    }
+
+    // 5. Atualiza o texto na interface
     statusBarItem.text = `${icon} PR: ${count} arquivos`
   } catch (e) {
+    // Se der erro (ex: branch main não existe), mostra um ícone neutro
     statusBarItem.text = '⚪ PR: main ñ enc.'
+    statusBarItem.backgroundColor = undefined
   }
 }
