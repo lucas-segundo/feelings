@@ -32,5 +32,6 @@ const getItem = (key: string) => {
   if (typeof window !== 'undefined') {
     return window.localStorage.getItem(key)
   }
+  console.log('getItem', key, 'window is undefined')
   return null
 }

@@ -22,6 +22,6 @@ export const useSession = (): Result => {
         },
       }
     : null
-
+  console.log('session', session)
   return { session, isLoading: isPending, error }
 }
