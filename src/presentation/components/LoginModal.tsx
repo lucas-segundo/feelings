@@ -22,6 +22,7 @@ interface LoginModalProps {
 
 export function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const t = useTranslations('LoginModal')
+  console.log('t', t)
 
   const handleLoginWithProvider = async (provider: 'google' | 'linkedin') => {
     await signInWithProvider({
