@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+
+# Define a branch base para comparação
+BASE_BRANCH="main"
+
+# Verifica se a branch main existe localmente
+if ! git show-ref --verify --quiet refs/heads/$BASE_BRANCH; then
+  echo "A branch $BASE_BRANCH não foi encontrada localmente."
+  exit 0
+fi
+
+# Pega as estatísticas de diferença entre a main e o seu commit atual
+STATS=$(git diff --shortstat $BASE_BRANCH...HEAD)
+
+# Se não houver diferenças, encerra
+if [ -z "$STATS" ]; then
+    STATS="0 files changed"
+fi
+
+# 1. Alerta no Terminal / Output do VS Code
+echo ""
+echo "=========================================================="
+echo "📊 TAMANHO DO SEU FUTURO PULL REQUEST (vs $BASE_BRANCH)"
+echo "   $STATS"
+echo "=========================================================="
+echo ""
