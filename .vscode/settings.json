@@ -3,5 +3,20 @@
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
-  }
+  },
+  "statusbar_command.commands": [
+    {
+      "id": "sbc_pr_size_monitor",
+      "text": "🔄 Calc PR...",
+      "tooltip": "Tamanho do Pull Request comparado a main",
+      "alignment": "left",
+      "priority": 100,
+      "command": "workbench.view.scm",
+      "scriptEvents": [
+        "vscode.workspace.onDidSaveTextDocument",
+        "vscode.window.onDidChangeActiveTextEditor"
+      ],
+      "script": "const path = require('path');require(path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, '.vscode', 'pr-size-statusbar.js'))(vscode, statusBarItem);"
+    }
+  ]
 }
