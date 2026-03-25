@@ -7,5 +7,6 @@ export const getLatestMessagesForUser = async (
   params: GetLatestMessagesForUserDTO,
 ) => {
   const getLatestMessagesForUserUseCase = makeGetLatestMessagesForUserUseCase()
+  console.log('getLatestMessagesForUser', params)
   return getLatestMessagesForUserUseCase.execute(params)
 }

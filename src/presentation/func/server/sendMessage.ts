@@ -5,5 +5,6 @@ import { makeSendMessageUseCase } from '@/app/useCases/SendMessage/factory'
 
 export const sendMessage = async (dto: SendMessageUseCaseDTO) => {
   const sendMessageUseCase = makeSendMessageUseCase()
+  console.log('sendMessage', dto)
   return sendMessageUseCase.execute(dto)
 }

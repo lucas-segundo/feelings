@@ -67,3 +67,4 @@ src/
 - Infrastructure has the configurations for external dependencies to enable the adapters inside `src/app` work.
 
 - Presentation depends ONLY on ports and use cases to present the data to the user.
+  teste
