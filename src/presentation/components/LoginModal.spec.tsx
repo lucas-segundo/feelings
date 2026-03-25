@@ -11,7 +11,7 @@ vi.mock('../func/client/signInWithProvider')
 describe('LoginModal', () => {
   const user = userEvent.setup()
 
-  it('should call signInWithProvider for google', async () => {
+  it('should calll signInWithProvider for google', async () => {
     render(
       <TestingProviders>
         <LoginModal isOpen={true} onClose={() => {}} />
