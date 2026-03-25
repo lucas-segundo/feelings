@@ -7,14 +7,16 @@
   "statusbar_command.commands": [
     {
       "id": "sbc_pr_size_monitor",
-      "text": "🔄 Calc PR...",
-      "tooltip": "Tamanho do Pull Request comparado a main",
+      "text": "🔄 Calc PR size...",
+      "tooltip": "The size of the pull request compared to main",
       "alignment": "left",
       "priority": 100,
       "command": "workbench.view.scm",
       "scriptEvents": [
-        "vscode.workspace.onDidSaveTextDocument",
-        "vscode.window.onDidChangeActiveTextEditor"
+        "vscode.window.onDidChangeWindowState",
+        "vscode.workspace.onDidChangeWorkspaceFolders",
+        "(function(){try{var x=vscode.extensions.getExtension('vscode.git');var api=x&&x.exports&&x.exports.getAPI(1);if(!api)return function(l){return new vscode.Disposable(function(){});};return api.onDidOpenRepository;}catch(e){return function(l){return new vscode.Disposable(function(){});};}})()",
+        "(function(){try{var x=vscode.extensions.getExtension('vscode.git');var api=x&&x.exports&&x.exports.getAPI(1);var r=api&&api.repositories&&api.repositories[0];return r?r.state.onDidChange:function(l){return new vscode.Disposable(function(){});};}catch(e){return function(l){return new vscode.Disposable(function(){});};}})()"
       ],
       "script": "const path = require('path');require(path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, '.vscode', 'pr-size-statusbar.js'))(vscode, statusBarItem);"
     }

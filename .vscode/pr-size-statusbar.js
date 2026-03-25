@@ -1,4 +1,5 @@
 // Loaded by statusbar_command (see .vscode/settings.json).
+// Refreshes on: window focus, workspace folders, git repo open, git repo state (commits/checkout/…).
 module.exports = function runPrSizeStatusbar(vscode, statusBarItem) {
   const cp = require('child_process')
 
@@ -23,10 +24,9 @@ module.exports = function runPrSizeStatusbar(vscode, statusBarItem) {
     }
 
     // 5. Atualiza o texto na interface
-    statusBarItem.text = `${icon} PR: ${count} arquivos`
+    statusBarItem.text = `${icon} PR: ${count} files changed`
   } catch (e) {
     // Se der erro (ex: branch main não existe), mostra um ícone neutro
-    statusBarItem.text = '⚪ PR: main ñ enc.'
-    statusBarItem.backgroundColor = undefined
+    statusBarItem.text = '⚪ PR: main not found'
   }
 }
